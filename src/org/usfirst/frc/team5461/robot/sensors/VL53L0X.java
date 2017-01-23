@@ -2,21 +2,26 @@ package org.usfirst.frc.team5461.robot.sensors;
 
 import java.nio.ByteBuffer;
 
-import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.hal.HALUtil;
+//import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.hal.I2CJNI;
 import edu.wpi.first.wpilibj.internal.HardwareTimer;
 import edu.wpi.first.wpilibj.util.BoundaryException;
 
-public class VL53L0X extends I2C {
+public class VL53L0X extends I2CUpdatableAddress {
 	
 	private Port m_port = Port.kOnboard;
 	//Store address given when the class is initialized.
-	//This value can be changed by the changeAddress() function
-	private int _i2caddress;
-	private ByteBuffer stop_variable;
+	
+	private static final int defaultAddress = 0x29;
+	// The value of the address above the default address.
+	private int deviceAddress;
+//	private int _i2caddress;
+	private byte stop_variable;
 	private int measurement_timing_budget_us;
 	private short timeout_start_ms;
-	private short io_timeout;
+	private short io_timeout = 0;
+	private boolean did_timeout;
 	
 	private enum BYTE_SIZE {
 		SINGLE(1),
@@ -54,12 +59,15 @@ public class VL53L0X extends I2C {
     }
 
 	public VL53L0X(int deviceAddress) {
-		super(Port.kOnboard, deviceAddress);
-		this._i2caddress = deviceAddress;
+		super(Port.kOnboard, defaultAddress);
+		this.deviceAddress = deviceAddress;
+		this.did_timeout = false;
+		
 	}
-
 	  
 	public final boolean init(boolean io_2v8) {
+		// Start by changing to new address. This is required after every power up.
+		setAddress(defaultAddress + deviceAddress);
 		// sensor uses 1V8 mode for I/O by default; switch to 2V8 mode if necessary
 		if (io_2v8) {
 			write(VL53L0X_Constants.VHV_CONFIG_PAD_SCL_SDA__EXTSUP_HV.value,
@@ -72,7 +80,7 @@ public class VL53L0X extends I2C {
 		write(0x80, 0x01);
 		write(0xFF, 0x01);
 		write(0x00, 0x00);
-		stop_variable = read(0x91);
+		stop_variable = read(0x91).get();
 		write(0x00, 0x01);
 		write(0xFF, 0x00);
 		write(0x80, 0x00);
@@ -85,7 +93,7 @@ public class VL53L0X extends I2C {
 
 		write(VL53L0X_Constants.SYSTEM_SEQUENCE_CONFIG.value, 0xFF);
 
-		ByteBuffer spad_count = ByteBuffer.allocateDirect(BYTE_SIZE.SINGLE.value);
+		byte[] spad_count = new byte[1];
 		BooleanCarrier spad_type_is_aperture = new BooleanCarrier(false);
 		if (!getSpadInfo(spad_count, spad_type_is_aperture)) { return false; }
 
@@ -107,7 +115,7 @@ public class VL53L0X extends I2C {
 		byte[] ref_spad_map_array = new byte[6];
 		ref_spad_map.get(ref_spad_map_array);
 		for (byte i = 0; i < 48; i++) {
-			if (i < first_spad_to_enable || spads_enabled == spad_count.get()) {
+			if (i < first_spad_to_enable || spads_enabled == spad_count[0]) {
 				// This bit is lower than the first one that should be enabled, or
 				// (reference_spad_count) bits have already been enabled, so zero this bit
 				ref_spad_map_array[i / 8] &= ~(1 << (i % 8));
@@ -117,8 +125,9 @@ public class VL53L0X extends I2C {
 			}
 		}
 
-		ref_spad_map.put(ref_spad_map_array);
-		writeMulti(VL53L0X_Constants.GLOBAL_CONFIG_SPAD_ENABLES_REF_0.value, 6, ref_spad_map);
+		ByteBuffer ref_spad_map2 = ByteBuffer.allocateDirect(6);
+		ref_spad_map2.put(ref_spad_map_array);
+		writeBulk(VL53L0X_Constants.GLOBAL_CONFIG_SPAD_ENABLES_REF_0.value, ref_spad_map2, 6);
 
 		write(0xFF, 0x01);
 		write(0x00, 0x00);
@@ -261,20 +270,78 @@ public class VL53L0X extends I2C {
 		return true;
 	}
 	
+	// Performs a single-shot range measurement and returns the reading in
+	// millimeters
+	// based on VL53L0X_PerformSingleRangingMeasurement()
+	public int readRangeSingleMillimeters()
+	{
+	  write(0x80, 0x01);
+	  write(0xFF, 0x01);
+	  write(0x00, 0x00);
+	  write(0x91, stop_variable);
+	  write(0x00, 0x01);
+	  write(0xFF, 0x00);
+	  write(0x80, 0x00);
+
+	  write(VL53L0X_Constants.SYSRANGE_START.value, 0x01);
+
+	  // "Wait until start bit has been cleared"
+	  startTimeout();
+	  while ((read(VL53L0X_Constants.SYSRANGE_START.value).get() & 0x01) == 0x01)
+	  {
+	    if (checkTimeoutExpired())
+	    {
+	      did_timeout = true;
+	      return 65535;
+	    }
+	  }
+
+	  return readRangeContinuousMillimeters();
+	}
+	
+	// Returns a range reading in millimeters when continuous mode is active
+	// (readRangeSingleMillimeters() also calls this function after starting a
+	// single-shot range measurement)
+	public int readRangeContinuousMillimeters()
+	{
+	  startTimeout();
+	  while ((read(VL53L0X_Constants.RESULT_INTERRUPT_STATUS.value).get() & 0x07) == 0)
+	  {
+	    if (checkTimeoutExpired())
+	    {
+	      did_timeout = true;
+	      return 65535;
+	    }
+	  }
+
+	  // assumptions: Linearity Corrective Gain is 1000 (default);
+	  // fractional ranging is not enabled
+//	  ByteBuffer byte_buffer_range = read16(VL53L0X_Constants.RESULT_RANGE_STATUS.value + 10);
+	  
+	  short range = read16(VL53L0X_Constants.RESULT_RANGE_STATUS.value + 10).getShort();
+
+	  write(VL53L0X_Constants.SYSTEM_INTERRUPT_CLEAR.value, 0x01);
+//	  byte_buffer_range.clear();
+	  return range;
+	}
+	
 	public final int setAddress(int new_address) {
 		//NOTICE: CHANGING THE ADDRESS IS NOT STORED IN NON-VOLATILE MEMORY
-		// POWER CYCLING THE DEVICE REVERTS ADDRESS BACK TO 0X29
-		if (_i2caddress == new_address)
+		// POWER CYCLING THE DEVICE REVERTS ADDRESS BACK TO 0x29
+		if (m_deviceAddress == new_address)
 		{
-			return _i2caddress;
+			return m_deviceAddress;
 		}
 		// Device addresses cannot go higher than 127
 		if (new_address > 127)
 		{
-			return _i2caddress;
+			return m_deviceAddress;
 		}
 
-		write(VL53L0X_Constants.I2C_SLAVE_DEVICE_ADDRESS.value, new_address);
+		boolean success = write(VL53L0X_Constants.I2C_SLAVE_DEVICE_ADDRESS.value, new_address & 0x7F);
+		if (success) {
+			m_deviceAddress = new_address;
+		}
 		return getAddressFromDevice();
 	}
 	
@@ -284,33 +351,18 @@ public class VL53L0X extends I2C {
 		return deviceAddress.get();
 	}
 	
-	@Override
-	public synchronized boolean write(int registerAddress, int data) {
-		ByteBuffer dataToSendBuffer = ByteBuffer.allocateDirect(3);
-		dataToSendBuffer.putShort((short)registerAddress);
-		dataToSendBuffer.put(2, (byte)data);
-
-		return I2CJNI.i2CWrite((byte) m_port.value, (byte) _i2caddress, dataToSendBuffer,
-				(byte) 3) < 0;
-	}
-	
+	// Writing two bytes of data back-to-back is a special case of writeBulk
 	public synchronized boolean write16(int registerAddress, int data) {
-		ByteBuffer dataToSendBuffer = ByteBuffer.allocateDirect(4);
-		dataToSendBuffer.putShort((short)registerAddress);
-		dataToSendBuffer.putShort(2, (short)data);
-
-		return I2CJNI.i2CWrite((byte) m_port.value, (byte) _i2caddress, dataToSendBuffer,
-				(byte) 4) < 0;
+		ByteBuffer registerWithDataToSendBuffer = ByteBuffer.allocateDirect(3);
+		registerWithDataToSendBuffer.put((byte) registerAddress);
+		registerWithDataToSendBuffer.putShort(1, (short)data);		
+		return writeBulk(registerWithDataToSendBuffer, 3);
 	}
 	
-	public synchronized boolean writeMulti(int registerAddress, int count, ByteBuffer buffer) {
-		ByteBuffer dataToSendBuffer = ByteBuffer.allocateDirect(count + 2);
-		dataToSendBuffer.putShort((short)registerAddress);
-		byte[] byteArray = new byte[count];
-		buffer.get(byteArray);
-		dataToSendBuffer.put(byteArray);
-		return I2CJNI.i2CWrite((byte) m_port.value, (byte) _i2caddress, dataToSendBuffer,
-				(byte) (count + 2)) < 0;
+	public synchronized boolean writeBulk(int registerAddress, ByteBuffer data, int size) {
+		ByteBuffer registerWithDataToSendBuffer = ByteBuffer.allocateDirect(size + 1);
+		registerWithDataToSendBuffer.put(data);
+		return writeBulk(registerWithDataToSendBuffer, size + 1);
 	}
 	
 	private ByteBuffer read(int registerAddress) {
@@ -319,22 +371,11 @@ public class VL53L0X extends I2C {
 		return bufferResults;
 	}
 	
-	@Override
-	public boolean read(int registerAddress, int count, ByteBuffer buffer) {
-		if (count < 1) {
-			throw new BoundaryException("Value must be at least 1, " + count +
-					" given");
-		}
-
-		if (!buffer.isDirect())
-			throw new IllegalArgumentException("must be a direct buffer");
-		if (buffer.capacity() < count)
-			throw new IllegalArgumentException("buffer is too small, must be at least " + count);
-
-		ByteBuffer dataToSendBuffer = ByteBuffer.allocateDirect(2);
-		dataToSendBuffer.putShort((short)registerAddress);
-
-		return transaction(dataToSendBuffer, 2, buffer, count);
+	// Reading two bytes of data back-to-back is a special, 2-byte case of read
+	private ByteBuffer read16(int registerAddress) {
+		ByteBuffer bufferResults = ByteBuffer.allocateDirect(BYTE_SIZE.DOUBLE.value);
+		read(registerAddress, BYTE_SIZE.DOUBLE.value, bufferResults);
+		return bufferResults;
 	}
 	
 	// Set the return signal rate limit check value in units of MCPS (mega counts
@@ -354,8 +395,8 @@ public class VL53L0X extends I2C {
 	// Get reference SPAD (single photon avalanche diode) count and type
 	// based on VL53L0X_get_info_from_device(),
 	// but only gets reference SPAD count and type
-	private boolean getSpadInfo(ByteBuffer count, BooleanCarrier type_is_aperture) {
-	  ByteBuffer tmp = ByteBuffer.allocateDirect(BYTE_SIZE.SINGLE.value);
+	private boolean getSpadInfo(byte[] count, BooleanCarrier type_is_aperture) {
+	  byte tmp_byte = 0x00; // ByteBuffer.allocateDirect(BYTE_SIZE.SINGLE.value);
 
 	  write(0x80, 0x01);
 	  write(0xFF, 0x01);
@@ -376,11 +417,11 @@ public class VL53L0X extends I2C {
 	    if (checkTimeoutExpired()) { return false; }
 	  }
 	  write(0x83, 0x01);
-	  tmp = read(0x92);
+	  tmp_byte = read(0x92).get();
 
-	  byte count_byte = (byte) (tmp.get() & 0x7f);
-	  count.put(count_byte);
-	  boolean type_is_aperture_boolean = (((tmp.get() >> 7) & 0x01) == 0x01);
+	  count[0] = (byte) (tmp_byte & 0x7f);
+//	  count.put(0, count_byte);
+	  boolean type_is_aperture_boolean = (((tmp_byte) & 0x01) == 0x01);
 	  type_is_aperture.value = type_is_aperture_boolean;
 
 	  write(0x81, 0x00);
@@ -617,13 +658,13 @@ public class VL53L0X extends I2C {
 	
 	// Record the current time to check an upcoming timeout against
 	private int startTimeout() {
-		double now = new HardwareTimer().getFPGATimestamp() * 1000;
+		double now = HALUtil.getFPGATime() * 1000;
 		return (timeout_start_ms = (short) now);
 	}
 	
 	// Check if timeout is enabled (set to nonzero value) and has expired
 	private boolean checkTimeoutExpired() {
-		int now = (int) (new HardwareTimer().getFPGATimestamp() * 1000);
+		int now = (int) (HALUtil.getFPGATime() * 1000);
 		return (io_timeout > 0 && (now - timeout_start_ms) > io_timeout);
 	}
 	

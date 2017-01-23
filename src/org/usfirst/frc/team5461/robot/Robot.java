@@ -8,8 +8,9 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.usfirst.frc.team5461.robot.commands.ExampleCommand;
-import org.usfirst.frc.team5461.robot.subsystems.ExampleSubsystem;
+import java.util.Vector;
+
+import org.usfirst.frc.team5461.robot.subsystems.VL53L0XSensorsSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -20,12 +21,12 @@ import org.usfirst.frc.team5461.robot.subsystems.ExampleSubsystem;
  */
 public class Robot extends IterativeRobot {
 
-	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
+	public static final VL53L0XSensorsSubsystem vl53l0xSensorsSubsystem = new VL53L0XSensorsSubsystem();
 	public static OI oi;
 
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
-
+	
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -33,9 +34,15 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		oi = new OI();
-		chooser.addDefault("Default Auto", new ExampleCommand());
+//		chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
+		boolean result = vl53l0xSensorsSubsystem.init();
+		if (result) {
+			System.out.println("Init successful!!!");
+		} else {
+			System.out.println("Init not successfull!!!");
+		}
 	}
 
 	/**
@@ -96,6 +103,7 @@ public class Robot extends IterativeRobot {
 		// this line or comment it out.
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
+		System.out.println("teleopInit:");
 	}
 
 	/**
@@ -104,6 +112,20 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		Vector<Integer> results = vl53l0xSensorsSubsystem.readRangeSingleMillimeters();
+		StringBuilder sb = new StringBuilder();
+		sb.append("Range1: ");
+		sb.append(Integer.toString(results.get(0)));
+		sb.append(" Range2: ");
+		sb.append(Integer.toString(results.get(1)));
+		sb.append("\n");
+		System.out.println(sb.toString());
+		try {
+			Thread.sleep(5);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		results.clear();
 	}
 
 	/**
