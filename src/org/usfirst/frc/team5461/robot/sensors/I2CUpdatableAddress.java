@@ -1,5 +1,7 @@
 package org.usfirst.frc.team5461.robot.sensors;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 /*----------------------------------------------------------------------------*/
 /* Copyright (c) FIRST 2008-2017. All Rights Reserved.                        */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
@@ -116,8 +118,15 @@ public class I2CUpdatableAddress extends SensorBase {
           "dataReceived is too small, must be at least " + receiveSize);
     }
 
-    return I2CJNI.i2CTransaction((byte) m_port.value, (byte) m_deviceAddress, dataToSend,
+    boolean result = I2CJNI.i2CTransaction((byte) m_port.value, (byte) m_deviceAddress, dataToSend,
                                  (byte) sendSize, dataReceived, (byte) receiveSize) < receiveSize;
+    try {
+		destroyDirectByteBuffer(dataToSend);
+	} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException
+			| InvocationTargetException e) {
+		e.printStackTrace();
+	}
+    return result;
   }
 
   /**
@@ -148,8 +157,15 @@ public class I2CUpdatableAddress extends SensorBase {
     ByteBuffer dataToSendBuffer = ByteBuffer.allocateDirect(2);
     dataToSendBuffer.put(buffer);
 
-    return I2CJNI.i2CWrite((byte) m_port.value, (byte) m_deviceAddress, dataToSendBuffer,
+    boolean result = I2CJNI.i2CWrite((byte) m_port.value, (byte) m_deviceAddress, dataToSendBuffer,
                            (byte) buffer.length) < buffer.length;
+    try {
+		destroyDirectByteBuffer(dataToSendBuffer);
+	} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException
+			| InvocationTargetException e) {
+		e.printStackTrace();
+	}
+    return result;
   }
 
   /**
@@ -163,8 +179,15 @@ public class I2CUpdatableAddress extends SensorBase {
     ByteBuffer dataToSendBuffer = ByteBuffer.allocateDirect(data.length);
     dataToSendBuffer.put(data);
 
-    return I2CJNI.i2CWrite((byte) m_port.value, (byte) m_deviceAddress, dataToSendBuffer,
+    boolean result = I2CJNI.i2CWrite((byte) m_port.value, (byte) m_deviceAddress, dataToSendBuffer,
                            (byte) data.length) < data.length;
+    try {
+		destroyDirectByteBuffer(dataToSendBuffer);
+	} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException
+			| InvocationTargetException e) {
+		e.printStackTrace();
+	}
+    return result;
   }
 
   /**
@@ -345,6 +368,15 @@ public class I2CUpdatableAddress extends SensorBase {
   
   public void close() {
 	  I2CJNI.i2CClose((byte) m_port.value);
+  }
+  
+  public static void destroyDirectByteBuffer(ByteBuffer toBeDestroyed) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {	  
+	  Method cleanerMethod = toBeDestroyed.getClass().getMethod("cleaner");
+	  cleanerMethod.setAccessible(true);
+	  Object cleaner = cleanerMethod.invoke(toBeDestroyed);
+	  Method cleanMethod = cleaner.getClass().getMethod("clean");
+	  cleanMethod.setAccessible(true);
+	  cleanMethod.invoke(cleaner);			  
   }
 }
 
