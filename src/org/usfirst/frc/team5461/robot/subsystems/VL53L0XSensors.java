@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  *
  */
-public class VL53L0XSensorsSubsystem extends Subsystem {
+public class VL53L0XSensors {
 
 	// Sensors
 	VL53L0X vl53l0x1;
@@ -20,7 +20,7 @@ public class VL53L0XSensorsSubsystem extends Subsystem {
 	DigitalOutput do1 = new DigitalOutput(0);
 	DigitalOutput do2 = new DigitalOutput(1);
 	
-	public VL53L0XSensorsSubsystem() {
+	public VL53L0XSensors() {
 		do1.set(false);
 		do2.set(false);
 	}
@@ -61,15 +61,21 @@ public class VL53L0XSensorsSubsystem extends Subsystem {
 		results.add(result2);
 		return results;
 	}
-
-    public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
-    }
-    
-    public void close() {
-    	vl53l0x1.close();
-    	vl53l0x2.close();
-    }
+	
+	public int readRangeSingleMillimeters(int address) {
+		int result = -1;
+		if (address == 1) {
+			result = vl53l0x1.readRangeSingleMillimeters();
+		} else if (address == 2) {
+			result = vl53l0x2.readRangeSingleMillimeters();
+		}
+		// Give a little wait between reads
+		try {
+			Thread.sleep(10);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 }
 

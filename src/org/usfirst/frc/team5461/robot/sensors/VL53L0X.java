@@ -1,14 +1,12 @@
 package org.usfirst.frc.team5461.robot.sensors;
 
+import java.lang.reflect.Field;
 import java.nio.ByteBuffer;
 
+import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.hal.HALUtil;
-//import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.hal.I2CJNI;
-import edu.wpi.first.wpilibj.internal.HardwareTimer;
-import edu.wpi.first.wpilibj.util.BoundaryException;
 
-public class VL53L0X extends I2CUpdatableAddress {
+public class VL53L0X extends I2C {
 	
 	private Port m_port = Port.kOnboard;
 	//Store address given when the class is initialized.
@@ -67,7 +65,11 @@ public class VL53L0X extends I2CUpdatableAddress {
 	  
 	public final boolean init(boolean io_2v8) {
 		// Start by changing to new address. This is required after every power up.
-		setAddress(defaultAddress + deviceAddress);
+		try {
+			setAddress(defaultAddress + deviceAddress);
+		} catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
+			e.printStackTrace();
+		}
 		// sensor uses 1V8 mode for I/O by default; switch to 2V8 mode if necessary
 		if (io_2v8) {
 			write(VL53L0X_Constants.VHV_CONFIG_PAD_SCL_SDA__EXTSUP_HV.value,
@@ -325,22 +327,28 @@ public class VL53L0X extends I2CUpdatableAddress {
 	  return range;
 	}
 	
-	public final int setAddress(int new_address) {
+	public final int setAddress(int new_address) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
 		//NOTICE: CHANGING THE ADDRESS IS NOT STORED IN NON-VOLATILE MEMORY
 		// POWER CYCLING THE DEVICE REVERTS ADDRESS BACK TO 0x29
-		if (m_deviceAddress == new_address)
+		Field field = I2C.class.getDeclaredField("m_deviceAddress");
+		field.setAccessible(true);
+		
+		int deviceAddress = (int) field.get(this);
+		
+		
+		if (deviceAddress == new_address)
 		{
-			return m_deviceAddress;
+			return deviceAddress;
 		}
 		// Device addresses cannot go higher than 127
 		if (new_address > 127)
 		{
-			return m_deviceAddress;
+			return deviceAddress;
 		}
 
 		boolean success = write(VL53L0X_Constants.I2C_SLAVE_DEVICE_ADDRESS.value, new_address & 0x7F);
 		if (success) {
-			m_deviceAddress = new_address;
+			deviceAddress = new_address;
 		}
 		return getAddressFromDevice();
 	}

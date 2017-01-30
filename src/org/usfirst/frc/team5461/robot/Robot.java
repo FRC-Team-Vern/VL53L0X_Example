@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import java.util.Vector;
 
-import org.usfirst.frc.team5461.robot.subsystems.VL53L0XSensorsSubsystem;
+import org.usfirst.frc.team5461.robot.subsystems.VL53L0XSensors;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -21,7 +21,7 @@ import org.usfirst.frc.team5461.robot.subsystems.VL53L0XSensorsSubsystem;
  */
 public class Robot extends IterativeRobot {
 
-	public static final VL53L0XSensorsSubsystem vl53l0xSensorsSubsystem = new VL53L0XSensorsSubsystem();
+	public static final VL53L0XSensors vl53l0xSensors = new VL53L0XSensors();
 	public static OI oi;
 
 	Command autonomousCommand;
@@ -37,7 +37,7 @@ public class Robot extends IterativeRobot {
 //		chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
-		boolean result = vl53l0xSensorsSubsystem.init();
+		boolean result = vl53l0xSensors.init();
 		if (result) {
 			System.out.println("Init successful!!!");
 		} else {
@@ -112,7 +112,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		Vector<Integer> results = vl53l0xSensorsSubsystem.readRangeSingleMillimeters();
+		Vector<Integer> results = vl53l0xSensors.readRangeSingleMillimeters();
 		StringBuilder sb = new StringBuilder();
 		sb.append("Range1: ");
 		sb.append(Integer.toString(results.get(0)));
