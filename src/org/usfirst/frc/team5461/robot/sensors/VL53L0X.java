@@ -3,10 +3,9 @@ package org.usfirst.frc.team5461.robot.sensors;
 import java.lang.reflect.Field;
 import java.nio.ByteBuffer;
 
-import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.hal.HALUtil;
 
-public class VL53L0X extends I2C {
+public class VL53L0X extends I2CUpdatableAddress {
 	
 	private Port m_port = Port.kOnboard;
 	//Store address given when the class is initialized.
@@ -330,25 +329,25 @@ public class VL53L0X extends I2C {
 	public final int setAddress(int new_address) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
 		//NOTICE: CHANGING THE ADDRESS IS NOT STORED IN NON-VOLATILE MEMORY
 		// POWER CYCLING THE DEVICE REVERTS ADDRESS BACK TO 0x29
-		Field field = I2C.class.getDeclaredField("m_deviceAddress");
-		field.setAccessible(true);
+//		Field field = I2C.class.getDeclaredField("m_deviceAddress");
+//		field.setAccessible(true);
+//		
+//		int deviceAddress = (int) field.get(this);
 		
-		int deviceAddress = (int) field.get(this);
 		
-		
-		if (deviceAddress == new_address)
+		if (m_deviceAddress == new_address)
 		{
-			return deviceAddress;
+			return m_deviceAddress;
 		}
 		// Device addresses cannot go higher than 127
 		if (new_address > 127)
 		{
-			return deviceAddress;
+			return m_deviceAddress;
 		}
 
 		boolean success = write(VL53L0X_Constants.I2C_SLAVE_DEVICE_ADDRESS.value, new_address & 0x7F);
 		if (success) {
-			deviceAddress = new_address;
+			m_deviceAddress = new_address;
 		}
 		return getAddressFromDevice();
 	}
