@@ -1,8 +1,6 @@
-package org.usfirst.frc.team5461.robot.subsystems;
+package org.usfirst.frc.team5461.robot.sensors;
 
 import java.util.Vector;
-
-import org.usfirst.frc.team5461.robot.sensors.VL53L0X;
 
 import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.command.Subsystem;

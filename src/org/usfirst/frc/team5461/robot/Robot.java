@@ -10,7 +10,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import java.util.Vector;
 
-import org.usfirst.frc.team5461.robot.subsystems.VL53L0XSensors;
+import org.usfirst.frc.team5461.robot.sensors.VL53L0XSensors;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the
