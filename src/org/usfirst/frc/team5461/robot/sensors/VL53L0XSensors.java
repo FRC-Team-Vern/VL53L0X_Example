@@ -2,8 +2,9 @@ package org.usfirst.frc.team5461.robot.sensors;
 
 import java.util.Vector;
 
+import org.usfirst.frc.team5461.robot.sensors.I2CUpdatableAddress.NACKException;
+
 import edu.wpi.first.wpilibj.DigitalOutput;
-import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  *
@@ -14,6 +15,8 @@ public class VL53L0XSensors {
 	VL53L0X vl53l0x1;
 	VL53L0X vl53l0x2;
 	
+	boolean initialized = false;
+	
 	// Respective DIO
 	DigitalOutput do1 = new DigitalOutput(0);
 	DigitalOutput do2 = new DigitalOutput(1);
@@ -23,7 +26,7 @@ public class VL53L0XSensors {
 		do2.set(false);
 	}
 	
-	public boolean init() {
+	public boolean init() throws NACKException {
 		do1.set(true);
 		// Allow some time for the xshut bit to settle
 		try {
@@ -41,11 +44,17 @@ public class VL53L0XSensors {
 			e.printStackTrace();
 		}
 		vl53l0x2 = new VL53L0X(2);
+		
 		boolean result2 = vl53l0x2.init(true);
-		return result1 && result2;
+		initialized = result1 && result2;
+		return initialized;
 	}
 	
-	public Vector<Integer> readRangeSingleMillimeters() {
+	public Vector<Integer> readRangeSingleMillimeters() throws NACKException, NotInitalizedException{
+		if (!initialized){
+			throw new NotInitalizedException();
+		}
+		
 		Vector<Integer> results = new Vector<>();
 		int result1 = vl53l0x1.readRangeSingleMillimeters();
 		results.add(result1);
@@ -59,12 +68,15 @@ public class VL53L0XSensors {
 		results.add(result2);
 		return results;
 	}
-	
-	public int readRangeSingleMillimeters(int address) {
+	public int readRangeSingleMillimeters(int address) throws NACKException, NotInitalizedException{
+		if (!initialized){
+			throw new NotInitalizedException();
+		}
 		int result = -1;
-		if (address == 1) {
+		if (address == 1){
 			result = vl53l0x1.readRangeSingleMillimeters();
-		} else if (address == 2) {
+			
+		} else if (address == 2){
 			result = vl53l0x2.readRangeSingleMillimeters();
 		}
 		// Give a little wait between reads
@@ -75,5 +87,21 @@ public class VL53L0XSensors {
 		}
 		return result;
 	}
+	
+	
+
+    public void initDefaultCommand() {
+        // Set the default command for a subsystem here.
+        //setDefaultCommand(new MySpecialCommand());
+    }
+    
+    public void close() {
+    	vl53l0x1.close();
+    	vl53l0x2.close();
+    }
+    public class NotInitalizedException extends Exception{
+    	
+    }
+    
 }
 

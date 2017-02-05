@@ -4,6 +4,10 @@ import java.lang.reflect.Field;
 import java.nio.ByteBuffer;
 
 import edu.wpi.first.wpilibj.hal.HALUtil;
+//import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.hal.I2CJNI;
+import edu.wpi.first.wpilibj.internal.HardwareTimer;
+import edu.wpi.first.wpilibj.util.BoundaryException;
 
 public class VL53L0X extends I2CUpdatableAddress {
 	
@@ -62,13 +66,9 @@ public class VL53L0X extends I2CUpdatableAddress {
 		
 	}
 	  
-	public final boolean init(boolean io_2v8) {
+	public final boolean init(boolean io_2v8) throws NACKException {
 		// Start by changing to new address. This is required after every power up.
-		try {
-			setAddress(defaultAddress + deviceAddress);
-		} catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
-			e.printStackTrace();
-		}
+		setAddress(defaultAddress + deviceAddress);
 		// sensor uses 1V8 mode for I/O by default; switch to 2V8 mode if necessary
 		if (io_2v8) {
 			write(VL53L0X_Constants.VHV_CONFIG_PAD_SCL_SDA__EXTSUP_HV.value,
@@ -274,7 +274,7 @@ public class VL53L0X extends I2CUpdatableAddress {
 	// Performs a single-shot range measurement and returns the reading in
 	// millimeters
 	// based on VL53L0X_PerformSingleRangingMeasurement()
-	public int readRangeSingleMillimeters()
+	public int readRangeSingleMillimeters() throws NACKException
 	{
 	  write(0x80, 0x01);
 	  write(0xFF, 0x01);
@@ -303,7 +303,7 @@ public class VL53L0X extends I2CUpdatableAddress {
 	// Returns a range reading in millimeters when continuous mode is active
 	// (readRangeSingleMillimeters() also calls this function after starting a
 	// single-shot range measurement)
-	public int readRangeContinuousMillimeters()
+	public int readRangeContinuousMillimeters() throws NACKException
 	{
 	  startTimeout();
 	  while ((read(VL53L0X_Constants.RESULT_INTERRUPT_STATUS.value).get() & 0x07) == 0)
@@ -326,7 +326,7 @@ public class VL53L0X extends I2CUpdatableAddress {
 	  return range;
 	}
 	
-	public final int setAddress(int new_address) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
+	public final int setAddress(int new_address) throws NACKException {
 		//NOTICE: CHANGING THE ADDRESS IS NOT STORED IN NON-VOLATILE MEMORY
 		// POWER CYCLING THE DEVICE REVERTS ADDRESS BACK TO 0x29
 //		Field field = I2C.class.getDeclaredField("m_deviceAddress");
@@ -402,7 +402,7 @@ public class VL53L0X extends I2CUpdatableAddress {
 	// Get reference SPAD (single photon avalanche diode) count and type
 	// based on VL53L0X_get_info_from_device(),
 	// but only gets reference SPAD count and type
-	private boolean getSpadInfo(byte[] count, BooleanCarrier type_is_aperture) {
+	private boolean getSpadInfo(byte[] count, BooleanCarrier type_is_aperture) throws NACKException {
 	  byte tmp_byte = 0x00; // ByteBuffer.allocateDirect(BYTE_SIZE.SINGLE.value);
 
 	  write(0x80, 0x01);
@@ -726,7 +726,7 @@ public class VL53L0X extends I2CUpdatableAddress {
 	}
 	
 	// based on VL53L0X_perform_single_ref_calibration()
-	boolean performSingleRefCalibration(byte vhv_init_byte)
+	boolean performSingleRefCalibration(byte vhv_init_byte) throws NACKException
 	{
 	  write(VL53L0X_Constants.SYSRANGE_START.value, 0x01 | vhv_init_byte); // VL53L0X_REG_SYSRANGE_MODE_START_STOP
 

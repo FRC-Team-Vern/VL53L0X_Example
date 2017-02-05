@@ -148,8 +148,9 @@ public class I2CUpdatableAddress extends SensorBase {
    *
    * @param registerAddress The address of the register on the device to be written.
    * @param data            The byte to write to the register on the device.
+ * @throws NACKException 
    */
-  public synchronized boolean write(int registerAddress, int data) {
+  public synchronized boolean write(int registerAddress, int data) throws NACKException {
     byte[] buffer = new byte[2];
     buffer[0] = (byte) registerAddress;
     buffer[1] = (byte) data;
@@ -157,15 +158,20 @@ public class I2CUpdatableAddress extends SensorBase {
     ByteBuffer dataToSendBuffer = ByteBuffer.allocateDirect(2);
     dataToSendBuffer.put(buffer);
 
-    boolean result = I2CJNI.i2CWrite((byte) m_port.value, (byte) m_deviceAddress, dataToSendBuffer,
-                           (byte) buffer.length) < buffer.length;
+    int result = I2CJNI.i2CWrite((byte) m_port.value, (byte) m_deviceAddress, dataToSendBuffer,
+                           (byte) buffer.length);
+    boolean bufferLengthResult = (result < buffer.length);
+    if (result == -1){
+    	throw new NACKException();
+    }
+    		
     try {
 		destroyDirectByteBuffer(dataToSendBuffer);
 	} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException
 			| InvocationTargetException e) {
 		e.printStackTrace();
 	}
-    return result;
+    return bufferLengthResult;
   }
 
   /**
@@ -378,5 +384,7 @@ public class I2CUpdatableAddress extends SensorBase {
 	  cleanMethod.setAccessible(true);
 	  cleanMethod.invoke(cleaner);			  
   }
+  
+  public class NACKException extends Exception{}
 }
 
