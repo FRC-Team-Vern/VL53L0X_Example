@@ -68,6 +68,7 @@ public class VL53L0XSensors {
 		results.add(result2);
 		return results;
 	}
+	
 	public int readRangeSingleMillimeters(int address) throws NACKException, NotInitalizedException{
 		if (!initialized){
 			throw new NotInitalizedException();
@@ -99,9 +100,8 @@ public class VL53L0XSensors {
     	vl53l0x1.close();
     	vl53l0x2.close();
     }
-    public class NotInitalizedException extends Exception{
-    	
-    }
+    
+    public class NotInitalizedException extends Exception{}
     
 }
 

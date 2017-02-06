@@ -1,0 +1,922 @@
+2017/02/05 07:06:22.211,[org.usfirst.frc.team5461.robot.Robot] INFO,Starting robotInit
+2017/02/05 07:06:29.768,[org.usfirst.frc.team5461.robot.Robot] INFO,Starting DriveToCollectGear:
+2017/02/05 07:06:29.804,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, 0.0
+2017/02/05 07:06:29.809,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.0
+2017/02/05 07:06:29.869,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,135
+2017/02/05 07:06:29.875,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,303
+2017/02/05 07:06:29.888,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.42
+2017/02/05 07:06:29.888,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:29.933,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,141
+2017/02/05 07:06:29.937,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.36
+2017/02/05 07:06:29.950,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,308
+2017/02/05 07:06:29.955,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:29.983,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,141
+2017/02/05 07:06:29.989,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.36
+2017/02/05 07:06:30.012,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,308
+2017/02/05 07:06:30.013,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:30.041,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,142
+2017/02/05 07:06:30.044,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.35000000000000003
+2017/02/05 07:06:30.067,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,302
+2017/02/05 07:06:30.070,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:30.101,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,143
+2017/02/05 07:06:30.106,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.34
+2017/02/05 07:06:30.129,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,299
+2017/02/05 07:06:30.132,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:30.162,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,140
+2017/02/05 07:06:30.169,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.37
+2017/02/05 07:06:30.191,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,302
+2017/02/05 07:06:30.195,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:30.221,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,138
+2017/02/05 07:06:30.229,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.39
+2017/02/05 07:06:30.244,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,306
+2017/02/05 07:06:30.250,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:30.281,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,140
+2017/02/05 07:06:30.283,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.37
+2017/02/05 07:06:30.312,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,298
+2017/02/05 07:06:30.316,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:30.348,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,141
+2017/02/05 07:06:30.350,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.36
+2017/02/05 07:06:30.364,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,302
+2017/02/05 07:06:30.369,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:30.404,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,142
+2017/02/05 07:06:30.410,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.35000000000000003
+2017/02/05 07:06:30.421,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,298
+2017/02/05 07:06:30.424,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:30.462,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,140
+2017/02/05 07:06:30.464,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.37
+2017/02/05 07:06:30.481,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,303
+2017/02/05 07:06:30.483,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:30.520,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,140
+2017/02/05 07:06:30.522,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.37
+2017/02/05 07:06:30.541,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,304
+2017/02/05 07:06:30.542,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:30.574,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,141
+2017/02/05 07:06:30.576,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.36
+2017/02/05 07:06:30.600,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,304
+2017/02/05 07:06:30.602,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:30.634,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,140
+2017/02/05 07:06:30.637,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.37
+2017/02/05 07:06:30.662,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,307
+2017/02/05 07:06:30.669,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:30.692,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,139
+2017/02/05 07:06:30.696,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.38
+2017/02/05 07:06:30.720,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,304
+2017/02/05 07:06:30.722,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:30.747,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,136
+2017/02/05 07:06:30.750,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.41000000000000003
+2017/02/05 07:06:30.778,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,299
+2017/02/05 07:06:30.779,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:30.801,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,139
+2017/02/05 07:06:30.803,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.38
+2017/02/05 07:06:30.829,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,306
+2017/02/05 07:06:30.831,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:30.860,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,142
+2017/02/05 07:06:30.868,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.35000000000000003
+2017/02/05 07:06:30.882,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,300
+2017/02/05 07:06:30.884,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:30.914,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,137
+2017/02/05 07:06:30.916,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.4
+2017/02/05 07:06:30.943,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,303
+2017/02/05 07:06:30.945,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:30.972,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,137
+2017/02/05 07:06:30.975,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.4
+2017/02/05 07:06:30.998,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,307
+2017/02/05 07:06:31.000,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:31.027,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,136
+2017/02/05 07:06:31.031,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.41000000000000003
+2017/02/05 07:06:31.055,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,305
+2017/02/05 07:06:31.058,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:31.079,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,134
+2017/02/05 07:06:31.081,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.43
+2017/02/05 07:06:31.110,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,302
+2017/02/05 07:06:31.138,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:31.152,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,139
+2017/02/05 07:06:31.153,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.38
+2017/02/05 07:06:31.187,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,302
+2017/02/05 07:06:31.189,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:31.207,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,140
+2017/02/05 07:06:31.209,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.37
+2017/02/05 07:06:31.238,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,302
+2017/02/05 07:06:31.241,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:31.264,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,142
+2017/02/05 07:06:31.265,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.35000000000000003
+2017/02/05 07:06:31.294,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,304
+2017/02/05 07:06:31.298,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:31.320,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,139
+2017/02/05 07:06:31.322,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.38
+2017/02/05 07:06:31.348,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,302
+2017/02/05 07:06:31.357,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:31.371,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,141
+2017/02/05 07:06:31.373,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.36
+2017/02/05 07:06:31.409,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,299
+2017/02/05 07:06:31.410,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:31.429,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,140
+2017/02/05 07:06:31.432,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.37
+2017/02/05 07:06:31.457,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,301
+2017/02/05 07:06:31.458,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:31.483,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,142
+2017/02/05 07:06:31.492,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.35000000000000003
+2017/02/05 07:06:31.505,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,303
+2017/02/05 07:06:31.511,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:31.542,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,142
+2017/02/05 07:06:31.544,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.35000000000000003
+2017/02/05 07:06:31.558,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,307
+2017/02/05 07:06:31.561,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:31.592,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,139
+2017/02/05 07:06:31.599,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.38
+2017/02/05 07:06:31.613,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,297
+2017/02/05 07:06:31.616,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:31.652,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,142
+2017/02/05 07:06:31.655,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.35000000000000003
+2017/02/05 07:06:31.668,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,307
+2017/02/05 07:06:31.671,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:31.702,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,134
+2017/02/05 07:06:31.704,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.43
+2017/02/05 07:06:31.727,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,301
+2017/02/05 07:06:31.733,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:31.758,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,135
+2017/02/05 07:06:31.762,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.42
+2017/02/05 07:06:31.784,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,307
+2017/02/05 07:06:31.787,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:31.811,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,141
+2017/02/05 07:06:31.813,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.36
+2017/02/05 07:06:31.841,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,302
+2017/02/05 07:06:31.843,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:31.860,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,141
+2017/02/05 07:06:31.861,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.36
+2017/02/05 07:06:31.891,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,305
+2017/02/05 07:06:31.893,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:31.915,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,142
+2017/02/05 07:06:31.918,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.35000000000000003
+2017/02/05 07:06:31.945,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,303
+2017/02/05 07:06:31.947,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:31.971,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,142
+2017/02/05 07:06:31.973,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.35000000000000003
+2017/02/05 07:06:32.002,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,303
+2017/02/05 07:06:32.010,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:32.022,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,139
+2017/02/05 07:06:32.023,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.38
+2017/02/05 07:06:32.053,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,303
+2017/02/05 07:06:32.057,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:32.080,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,141
+2017/02/05 07:06:32.082,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.36
+2017/02/05 07:06:32.109,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,309
+2017/02/05 07:06:32.113,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:32.141,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,138
+2017/02/05 07:06:32.142,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.39
+2017/02/05 07:06:32.165,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,305
+2017/02/05 07:06:32.169,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:32.193,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,142
+2017/02/05 07:06:32.195,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.35000000000000003
+2017/02/05 07:06:32.223,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,300
+2017/02/05 07:06:32.226,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:32.243,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,143
+2017/02/05 07:06:32.244,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.34
+2017/02/05 07:06:32.273,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,303
+2017/02/05 07:06:32.275,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:32.292,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,138
+2017/02/05 07:06:32.296,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.39
+2017/02/05 07:06:32.332,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,306
+2017/02/05 07:06:32.339,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:32.367,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,139
+2017/02/05 07:06:32.369,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.38
+2017/02/05 07:06:32.398,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,303
+2017/02/05 07:06:32.402,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:32.414,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,143
+2017/02/05 07:06:32.416,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.34
+2017/02/05 07:06:32.448,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,307
+2017/02/05 07:06:32.450,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:32.468,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,142
+2017/02/05 07:06:32.470,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.35000000000000003
+2017/02/05 07:06:32.500,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,299
+2017/02/05 07:06:32.502,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:32.521,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,141
+2017/02/05 07:06:32.528,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.36
+2017/02/05 07:06:32.551,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,301
+2017/02/05 07:06:32.554,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:32.580,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,140
+2017/02/05 07:06:32.583,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.37
+2017/02/05 07:06:32.603,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,302
+2017/02/05 07:06:32.606,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:32.633,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,140
+2017/02/05 07:06:32.636,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.37
+2017/02/05 07:06:32.656,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,308
+2017/02/05 07:06:32.660,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:32.682,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,143
+2017/02/05 07:06:32.684,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.34
+2017/02/05 07:06:32.711,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,305
+2017/02/05 07:06:32.713,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:32.739,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,143
+2017/02/05 07:06:32.743,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.34
+2017/02/05 07:06:32.760,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,307
+2017/02/05 07:06:32.766,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:32.789,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,141
+2017/02/05 07:06:32.791,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.36
+2017/02/05 07:06:32.813,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,306
+2017/02/05 07:06:32.816,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:32.840,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,141
+2017/02/05 07:06:32.849,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.36
+2017/02/05 07:06:32.869,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,308
+2017/02/05 07:06:32.870,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:32.898,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,141
+2017/02/05 07:06:32.899,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.36
+2017/02/05 07:06:32.915,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,313
+2017/02/05 07:06:32.916,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:32.945,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,140
+2017/02/05 07:06:32.948,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.37
+2017/02/05 07:06:32.967,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,305
+2017/02/05 07:06:32.969,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:32.999,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,141
+2017/02/05 07:06:33.003,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.36
+2017/02/05 07:06:33.021,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,298
+2017/02/05 07:06:33.022,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:33.050,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,140
+2017/02/05 07:06:33.052,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.37
+2017/02/05 07:06:33.073,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,295
+2017/02/05 07:06:33.076,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:33.103,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,138
+2017/02/05 07:06:33.104,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.39
+2017/02/05 07:06:33.130,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,285
+2017/02/05 07:06:33.133,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:33.159,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,144
+2017/02/05 07:06:33.160,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.33
+2017/02/05 07:06:33.180,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,292
+2017/02/05 07:06:33.183,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:33.209,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,138
+2017/02/05 07:06:33.210,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.39
+2017/02/05 07:06:33.233,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,317
+2017/02/05 07:06:33.235,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:33.261,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,138
+2017/02/05 07:06:33.266,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.39
+2017/02/05 07:06:33.285,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,365
+2017/02/05 07:06:33.290,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:33.314,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,137
+2017/02/05 07:06:33.318,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.4
+2017/02/05 07:06:33.339,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,455
+2017/02/05 07:06:33.343,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:33.366,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,141
+2017/02/05 07:06:33.370,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.36
+2017/02/05 07:06:33.392,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,477
+2017/02/05 07:06:33.394,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:33.421,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,141
+2017/02/05 07:06:33.423,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.36
+2017/02/05 07:06:33.445,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,468
+2017/02/05 07:06:33.446,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:33.472,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,137
+2017/02/05 07:06:33.474,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.4
+2017/02/05 07:06:33.492,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,470
+2017/02/05 07:06:33.493,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:33.524,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,138
+2017/02/05 07:06:33.529,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.39
+2017/02/05 07:06:33.542,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,473
+2017/02/05 07:06:33.544,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:33.579,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,140
+2017/02/05 07:06:33.581,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.37
+2017/02/05 07:06:33.594,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,463
+2017/02/05 07:06:33.595,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:33.625,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,143
+2017/02/05 07:06:33.627,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.34
+2017/02/05 07:06:33.642,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,468
+2017/02/05 07:06:33.644,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:33.682,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,139
+2017/02/05 07:06:33.687,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.38
+2017/02/05 07:06:33.690,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,468
+2017/02/05 07:06:33.692,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:33.735,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,139
+2017/02/05 07:06:33.736,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.38
+2017/02/05 07:06:33.741,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,466
+2017/02/05 07:06:33.747,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:33.790,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,135
+2017/02/05 07:06:33.792,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.42
+2017/02/05 07:06:33.798,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,464
+2017/02/05 07:06:33.803,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:33.834,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,141
+2017/02/05 07:06:33.837,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.36
+2017/02/05 07:06:33.852,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,472
+2017/02/05 07:06:33.856,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:33.888,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,137
+2017/02/05 07:06:33.892,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.4
+2017/02/05 07:06:33.908,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,467
+2017/02/05 07:06:33.912,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:33.937,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,140
+2017/02/05 07:06:33.939,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.37
+2017/02/05 07:06:33.960,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,469
+2017/02/05 07:06:33.961,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:33.988,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,143
+2017/02/05 07:06:33.993,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.34
+2017/02/05 07:06:34.019,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,471
+2017/02/05 07:06:34.021,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:34.040,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,137
+2017/02/05 07:06:34.041,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.4
+2017/02/05 07:06:34.069,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,464
+2017/02/05 07:06:34.071,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:34.097,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,136
+2017/02/05 07:06:34.100,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.41000000000000003
+2017/02/05 07:06:34.122,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,460
+2017/02/05 07:06:34.125,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:34.147,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,140
+2017/02/05 07:06:34.149,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.37
+2017/02/05 07:06:34.173,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,472
+2017/02/05 07:06:34.174,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:34.199,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,142
+2017/02/05 07:06:34.200,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.35000000000000003
+2017/02/05 07:06:34.226,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,462
+2017/02/05 07:06:34.228,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:34.249,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,139
+2017/02/05 07:06:34.250,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.38
+2017/02/05 07:06:34.275,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,465
+2017/02/05 07:06:34.276,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:34.295,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,140
+2017/02/05 07:06:34.297,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.37
+2017/02/05 07:06:34.324,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,465
+2017/02/05 07:06:34.334,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:34.350,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,141
+2017/02/05 07:06:34.352,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.36
+2017/02/05 07:06:34.380,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,463
+2017/02/05 07:06:34.391,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:34.403,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,137
+2017/02/05 07:06:34.404,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.4
+2017/02/05 07:06:34.433,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,469
+2017/02/05 07:06:34.435,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:34.453,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,142
+2017/02/05 07:06:34.454,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.35000000000000003
+2017/02/05 07:06:34.490,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,469
+2017/02/05 07:06:34.499,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:34.508,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,139
+2017/02/05 07:06:34.509,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.38
+2017/02/05 07:06:34.546,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,457
+2017/02/05 07:06:34.549,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:34.553,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,135
+2017/02/05 07:06:34.556,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.42
+2017/02/05 07:06:34.598,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,408
+2017/02/05 07:06:34.601,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:34.618,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,133
+2017/02/05 07:06:34.620,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.44
+2017/02/05 07:06:34.648,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,435
+2017/02/05 07:06:34.652,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:34.671,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,133
+2017/02/05 07:06:34.673,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.44
+2017/02/05 07:06:34.714,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,440
+2017/02/05 07:06:34.715,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:34.745,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,136
+2017/02/05 07:06:34.748,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.41000000000000003
+2017/02/05 07:06:34.766,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,449
+2017/02/05 07:06:34.767,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:34.797,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,137
+2017/02/05 07:06:34.799,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.4
+2017/02/05 07:06:34.813,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,452
+2017/02/05 07:06:34.814,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:34.860,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,137
+2017/02/05 07:06:34.869,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,445
+2017/02/05 07:06:34.870,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.4
+2017/02/05 07:06:34.890,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:34.943,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,146
+2017/02/05 07:06:34.943,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,345
+2017/02/05 07:06:34.948,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:34.953,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.31
+2017/02/05 07:06:35.007,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,260
+2017/02/05 07:06:35.008,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,168
+2017/02/05 07:06:35.009,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.09
+2017/02/05 07:06:35.011,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -0.8300000000000001
+2017/02/05 07:06:35.056,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,254
+2017/02/05 07:06:35.057,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -0.77
+2017/02/05 07:06:35.056,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,196
+2017/02/05 07:06:35.059,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, -0.19
+2017/02/05 07:06:35.059,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,DriveWithVL53L0X is on target: 1
+2017/02/05 07:06:35.119,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,245
+2017/02/05 07:06:35.120,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -0.68
+2017/02/05 07:06:35.119,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,1, Input,511
+2017/02/05 07:06:35.123,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, -1.0
+2017/02/05 07:06:35.123,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 1, Power, 0.0
+2017/02/05 07:06:35.167,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,241
+2017/02/05 07:06:35.168,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -0.64
+2017/02/05 07:06:35.215,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,255
+2017/02/05 07:06:35.216,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -0.78
+2017/02/05 07:06:35.261,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,312
+2017/02/05 07:06:35.265,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:35.311,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,337
+2017/02/05 07:06:35.312,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:35.362,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,333
+2017/02/05 07:06:35.366,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:35.412,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,351
+2017/02/05 07:06:35.413,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:35.464,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,370
+2017/02/05 07:06:35.470,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:35.513,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,393
+2017/02/05 07:06:35.514,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:35.562,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,447
+2017/02/05 07:06:35.564,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:35.612,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,490
+2017/02/05 07:06:35.616,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:35.663,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,498
+2017/02/05 07:06:35.664,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:35.711,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,512
+2017/02/05 07:06:35.713,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:35.766,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,508
+2017/02/05 07:06:35.769,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:35.816,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,520
+2017/02/05 07:06:35.817,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:35.866,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,533
+2017/02/05 07:06:35.872,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:35.921,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,542
+2017/02/05 07:06:35.922,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:35.969,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,540
+2017/02/05 07:06:35.972,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:36.020,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,537
+2017/02/05 07:06:36.022,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:36.069,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,523
+2017/02/05 07:06:36.071,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:36.119,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,540
+2017/02/05 07:06:36.122,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:36.170,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,533
+2017/02/05 07:06:36.171,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:36.220,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,533
+2017/02/05 07:06:36.235,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:36.278,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,515
+2017/02/05 07:06:36.280,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:36.331,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,522
+2017/02/05 07:06:36.333,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:36.379,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,516
+2017/02/05 07:06:36.380,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:36.428,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,511
+2017/02/05 07:06:36.432,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:36.479,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,521
+2017/02/05 07:06:36.485,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:36.530,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,508
+2017/02/05 07:06:36.531,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:36.580,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,512
+2017/02/05 07:06:36.586,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:36.633,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,508
+2017/02/05 07:06:36.634,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:36.682,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,502
+2017/02/05 07:06:36.683,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:36.732,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,507
+2017/02/05 07:06:36.736,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:36.783,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,506
+2017/02/05 07:06:36.784,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:36.837,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,514
+2017/02/05 07:06:36.839,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:36.882,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,509
+2017/02/05 07:06:36.889,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:36.935,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,506
+2017/02/05 07:06:36.937,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:36.982,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,514
+2017/02/05 07:06:36.984,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:37.032,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,508
+2017/02/05 07:06:37.035,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:37.083,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,502
+2017/02/05 07:06:37.090,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:37.138,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,497
+2017/02/05 07:06:37.139,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:37.186,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,500
+2017/02/05 07:06:37.189,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:37.234,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,495
+2017/02/05 07:06:37.235,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:37.287,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,500
+2017/02/05 07:06:37.288,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:37.341,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,504
+2017/02/05 07:06:37.342,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:37.388,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,498
+2017/02/05 07:06:37.392,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:37.442,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,506
+2017/02/05 07:06:37.444,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:37.491,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,504
+2017/02/05 07:06:37.492,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:37.541,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,505
+2017/02/05 07:06:37.542,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:37.590,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,504
+2017/02/05 07:06:37.592,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:37.642,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,506
+2017/02/05 07:06:37.643,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:37.691,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,499
+2017/02/05 07:06:37.693,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:37.742,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,503
+2017/02/05 07:06:37.745,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:37.792,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,507
+2017/02/05 07:06:37.794,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:37.842,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,497
+2017/02/05 07:06:37.859,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:37.904,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,451
+2017/02/05 07:06:37.908,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:37.953,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,416
+2017/02/05 07:06:37.960,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:38.003,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,386
+2017/02/05 07:06:38.005,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:38.053,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,370
+2017/02/05 07:06:38.054,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:38.105,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,352
+2017/02/05 07:06:38.108,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:38.153,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,358
+2017/02/05 07:06:38.154,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:38.204,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,370
+2017/02/05 07:06:38.208,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:38.256,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,392
+2017/02/05 07:06:38.257,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:38.306,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,406
+2017/02/05 07:06:38.311,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:38.361,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,408
+2017/02/05 07:06:38.362,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:38.410,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,417
+2017/02/05 07:06:38.411,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:38.458,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,428
+2017/02/05 07:06:38.462,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:38.509,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,430
+2017/02/05 07:06:38.511,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:38.558,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,429
+2017/02/05 07:06:38.560,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:38.610,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,440
+2017/02/05 07:06:38.611,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:38.660,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,448
+2017/02/05 07:06:38.663,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:38.709,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,460
+2017/02/05 07:06:38.710,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:38.759,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,453
+2017/02/05 07:06:38.760,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:38.813,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,458
+2017/02/05 07:06:38.814,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:38.867,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,460
+2017/02/05 07:06:38.868,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:38.914,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,459
+2017/02/05 07:06:38.921,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:38.964,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,455
+2017/02/05 07:06:38.968,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:39.013,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,469
+2017/02/05 07:06:39.014,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:39.067,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,465
+2017/02/05 07:06:39.069,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:39.114,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,472
+2017/02/05 07:06:39.116,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:39.166,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,474
+2017/02/05 07:06:39.169,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:39.217,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,473
+2017/02/05 07:06:39.219,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:39.266,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,484
+2017/02/05 07:06:39.270,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:39.314,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,488
+2017/02/05 07:06:39.316,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:39.366,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,493
+2017/02/05 07:06:39.369,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:39.433,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,490
+2017/02/05 07:06:39.437,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:39.479,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,485
+2017/02/05 07:06:39.480,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:39.528,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,500
+2017/02/05 07:06:39.533,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:39.579,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,497
+2017/02/05 07:06:39.582,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:39.631,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,489
+2017/02/05 07:06:39.632,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:39.680,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,496
+2017/02/05 07:06:39.681,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:39.729,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,496
+2017/02/05 07:06:39.733,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:39.780,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,490
+2017/02/05 07:06:39.783,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:39.832,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,489
+2017/02/05 07:06:39.833,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:39.885,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,488
+2017/02/05 07:06:39.889,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:39.932,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,485
+2017/02/05 07:06:39.934,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:39.984,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,484
+2017/02/05 07:06:39.989,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:40.037,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,486
+2017/02/05 07:06:40.039,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:40.088,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,485
+2017/02/05 07:06:40.089,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:40.138,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,489
+2017/02/05 07:06:40.143,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:40.189,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,482
+2017/02/05 07:06:40.191,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:40.238,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,477
+2017/02/05 07:06:40.239,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:40.288,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,471
+2017/02/05 07:06:40.295,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:40.342,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,456
+2017/02/05 07:06:40.343,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:40.389,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,455
+2017/02/05 07:06:40.394,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:40.439,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,442
+2017/02/05 07:06:40.440,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:40.489,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,420
+2017/02/05 07:06:40.490,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:40.539,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,395
+2017/02/05 07:06:40.540,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:40.589,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,386
+2017/02/05 07:06:40.590,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:40.642,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,373
+2017/02/05 07:06:40.643,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:40.691,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,371
+2017/02/05 07:06:40.693,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:40.745,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,360
+2017/02/05 07:06:40.749,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:40.793,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,356
+2017/02/05 07:06:40.797,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:40.844,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,357
+2017/02/05 07:06:40.848,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:40.893,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,356
+2017/02/05 07:06:40.895,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:40.950,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,355
+2017/02/05 07:06:40.952,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:40.998,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,355
+2017/02/05 07:06:41.000,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:41.060,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,347
+2017/02/05 07:06:41.062,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:41.108,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,345
+2017/02/05 07:06:41.109,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:41.153,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,345
+2017/02/05 07:06:41.155,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:41.207,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,343
+2017/02/05 07:06:41.212,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:41.254,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,339
+2017/02/05 07:06:41.255,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:41.306,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,337
+2017/02/05 07:06:41.311,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:41.357,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,333
+2017/02/05 07:06:41.358,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:41.406,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,332
+2017/02/05 07:06:41.410,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:41.458,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,337
+2017/02/05 07:06:41.460,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:41.508,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,330
+2017/02/05 07:06:41.510,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:41.558,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,327
+2017/02/05 07:06:41.562,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:41.609,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,324
+2017/02/05 07:06:41.611,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:41.659,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,344
+2017/02/05 07:06:41.661,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:41.709,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,430
+2017/02/05 07:06:41.713,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:41.760,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,495
+2017/02/05 07:06:41.769,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:41.810,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,501
+2017/02/05 07:06:41.811,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:41.860,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,497
+2017/02/05 07:06:41.864,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:41.910,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,494
+2017/02/05 07:06:41.916,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:41.963,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,494
+2017/02/05 07:06:41.964,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:42.011,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,492
+2017/02/05 07:06:42.012,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:42.061,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,492
+2017/02/05 07:06:42.066,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:42.111,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,492
+2017/02/05 07:06:42.113,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:42.160,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,487
+2017/02/05 07:06:42.162,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:42.216,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,491
+2017/02/05 07:06:42.217,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:42.261,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,474
+2017/02/05 07:06:42.269,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:42.318,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,482
+2017/02/05 07:06:42.319,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:42.364,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,466
+2017/02/05 07:06:42.368,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:42.413,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,470
+2017/02/05 07:06:42.422,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:42.467,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,464
+2017/02/05 07:06:42.469,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:42.514,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,459
+2017/02/05 07:06:42.516,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:42.563,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,457
+2017/02/05 07:06:42.565,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:42.613,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,459
+2017/02/05 07:06:42.632,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:42.679,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,456
+2017/02/05 07:06:42.683,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:42.728,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,464
+2017/02/05 07:06:42.729,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:42.778,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,461
+2017/02/05 07:06:42.780,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:42.828,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,458
+2017/02/05 07:06:42.830,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:42.878,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,457
+2017/02/05 07:06:42.880,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:42.929,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,454
+2017/02/05 07:06:42.930,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:42.979,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,454
+2017/02/05 07:06:42.982,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:43.030,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,455
+2017/02/05 07:06:43.033,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:43.079,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,451
+2017/02/05 07:06:43.080,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:43.128,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,450
+2017/02/05 07:06:43.130,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:43.181,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,452
+2017/02/05 07:06:43.183,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:43.233,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,443
+2017/02/05 07:06:43.234,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:43.287,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,447
+2017/02/05 07:06:43.288,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:43.333,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,445
+2017/02/05 07:06:43.334,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:43.387,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,450
+2017/02/05 07:06:43.388,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:43.435,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,443
+2017/02/05 07:06:43.439,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:43.485,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,449
+2017/02/05 07:06:43.489,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:43.535,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,452
+2017/02/05 07:06:43.537,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:43.587,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,446
+2017/02/05 07:06:43.589,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:43.633,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,446
+2017/02/05 07:06:43.635,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:43.690,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,451
+2017/02/05 07:06:43.692,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:43.733,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,450
+2017/02/05 07:06:43.735,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:43.785,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,447
+2017/02/05 07:06:43.789,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:43.837,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,448
+2017/02/05 07:06:43.838,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:43.891,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,448
+2017/02/05 07:06:43.894,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:43.939,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,444
+2017/02/05 07:06:43.940,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:43.990,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,452
+2017/02/05 07:06:43.995,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:44.040,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,447
+2017/02/05 07:06:44.048,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:44.091,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,446
+2017/02/05 07:06:44.095,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:44.143,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,444
+2017/02/05 07:06:44.150,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:44.194,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,446
+2017/02/05 07:06:44.199,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:44.272,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,443
+2017/02/05 07:06:44.276,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:44.321,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,443
+2017/02/05 07:06:44.334,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:44.379,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,444
+2017/02/05 07:06:44.383,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:44.429,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,441
+2017/02/05 07:06:44.430,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:44.478,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,435
+2017/02/05 07:06:44.480,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:44.531,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,432
+2017/02/05 07:06:44.532,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:44.582,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,441
+2017/02/05 07:06:44.587,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:44.636,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,438
+2017/02/05 07:06:44.637,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:44.685,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,442
+2017/02/05 07:06:44.689,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:44.734,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,438
+2017/02/05 07:06:44.737,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:44.785,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,439
+2017/02/05 07:06:44.789,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:44.834,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,442
+2017/02/05 07:06:44.835,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:44.889,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,442
+2017/02/05 07:06:44.890,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:44.939,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,443
+2017/02/05 07:06:44.940,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:44.989,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,445
+2017/02/05 07:06:44.992,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:45.039,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,440
+2017/02/05 07:06:45.040,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:45.089,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,440
+2017/02/05 07:06:45.090,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:45.140,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,436
+2017/02/05 07:06:45.141,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:45.190,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,435
+2017/02/05 07:06:45.193,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:45.241,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,438
+2017/02/05 07:06:45.242,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:45.292,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,434
+2017/02/05 07:06:45.293,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:45.342,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,427
+2017/02/05 07:06:45.347,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:45.392,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,429
+2017/02/05 07:06:45.393,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:45.443,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,432
+2017/02/05 07:06:45.444,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:45.493,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,424
+2017/02/05 07:06:45.496,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:45.546,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,420
+2017/02/05 07:06:45.548,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:45.593,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,417
+2017/02/05 07:06:45.594,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:45.645,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,401
+2017/02/05 07:06:45.648,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:45.694,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,411
+2017/02/05 07:06:45.697,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:45.745,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,401
+2017/02/05 07:06:45.750,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:45.797,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,400
+2017/02/05 07:06:45.798,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:45.846,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,406
+2017/02/05 07:06:45.849,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:45.907,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,410
+2017/02/05 07:06:45.910,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:45.958,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,415
+2017/02/05 07:06:45.959,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:46.007,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,415
+2017/02/05 07:06:46.008,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:46.056,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,423
+2017/02/05 07:06:46.062,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:46.108,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,415
+2017/02/05 07:06:46.110,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:46.158,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,418
+2017/02/05 07:06:46.160,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:46.208,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,415
+2017/02/05 07:06:46.212,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:46.258,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,423
+2017/02/05 07:06:46.262,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:46.313,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,424
+2017/02/05 07:06:46.314,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:46.360,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,419
+2017/02/05 07:06:46.362,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:46.411,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,396
+2017/02/05 07:06:46.415,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:46.462,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,384
+2017/02/05 07:06:46.463,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:46.512,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,371
+2017/02/05 07:06:46.513,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:46.562,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,347
+2017/02/05 07:06:46.567,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:46.611,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,334
+2017/02/05 07:06:46.613,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:46.662,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,324
+2017/02/05 07:06:46.663,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:46.712,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,313
+2017/02/05 07:06:46.715,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:46.762,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,302
+2017/02/05 07:06:46.763,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:46.812,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,295
+2017/02/05 07:06:46.813,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:46.862,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,285
+2017/02/05 07:06:46.863,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:46.916,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,278
+2017/02/05 07:06:46.917,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -1.0
+2017/02/05 07:06:46.963,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,272
+2017/02/05 07:06:46.965,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -0.9500000000000001
+2017/02/05 07:06:47.013,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,267
+2017/02/05 07:06:47.014,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -0.9
+2017/02/05 07:06:47.066,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,261
+2017/02/05 07:06:47.069,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -0.84
+2017/02/05 07:06:47.113,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,255
+2017/02/05 07:06:47.113,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -0.78
+2017/02/05 07:06:47.163,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,255
+2017/02/05 07:06:47.165,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -0.78
+2017/02/05 07:06:47.213,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,255
+2017/02/05 07:06:47.214,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -0.78
+2017/02/05 07:06:47.263,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,254
+2017/02/05 07:06:47.266,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -0.77
+2017/02/05 07:06:47.313,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,250
+2017/02/05 07:06:47.314,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -0.73
+2017/02/05 07:06:47.366,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,238
+2017/02/05 07:06:47.369,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -0.61
+2017/02/05 07:06:47.413,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,237
+2017/02/05 07:06:47.414,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -0.6
+2017/02/05 07:06:47.523,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,228
+2017/02/05 07:06:47.523,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -0.51
+2017/02/05 07:06:47.573,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,227
+2017/02/05 07:06:47.577,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -0.5
+2017/02/05 07:06:47.623,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,226
+2017/02/05 07:06:47.624,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -0.49
+2017/02/05 07:06:47.668,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,223
+2017/02/05 07:06:47.671,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -0.46
+2017/02/05 07:06:47.719,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,219
+2017/02/05 07:06:47.720,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -0.42
+2017/02/05 07:06:47.768,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,214
+2017/02/05 07:06:47.771,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -0.37
+2017/02/05 07:06:47.818,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,219
+2017/02/05 07:06:47.819,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -0.42
+2017/02/05 07:06:47.868,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,212
+2017/02/05 07:06:47.869,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -0.35000000000000003
+2017/02/05 07:06:47.918,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,213
+2017/02/05 07:06:47.919,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -0.36
+2017/02/05 07:06:47.969,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,215
+2017/02/05 07:06:47.970,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -0.38
+2017/02/05 07:06:48.019,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,212
+2017/02/05 07:06:48.020,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -0.35000000000000003
+2017/02/05 07:06:48.069,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,209
+2017/02/05 07:06:48.070,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -0.32
+2017/02/05 07:06:48.119,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,207
+2017/02/05 07:06:48.120,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -0.3
+2017/02/05 07:06:48.169,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,208
+2017/02/05 07:06:48.170,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -0.31
+2017/02/05 07:06:48.218,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,200
+2017/02/05 07:06:48.220,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -0.23
+2017/02/05 07:06:48.269,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,198
+2017/02/05 07:06:48.270,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -0.21
+2017/02/05 07:06:48.319,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,196
+2017/02/05 07:06:48.319,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -0.19
+2017/02/05 07:06:48.368,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,196
+2017/02/05 07:06:48.370,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -0.19
+2017/02/05 07:06:48.419,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,199
+2017/02/05 07:06:48.419,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -0.22
+2017/02/05 07:06:48.469,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,192
+2017/02/05 07:06:48.471,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -0.15
+2017/02/05 07:06:48.519,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,189
+2017/02/05 07:06:48.519,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -0.12
+2017/02/05 07:06:48.569,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,185
+2017/02/05 07:06:48.571,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -0.08
+2017/02/05 07:06:48.618,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address,2, Input,184
+2017/02/05 07:06:48.620,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, -0.07
+2017/02/05 07:06:48.627,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,DriveWithVL53L0X is on target: 2
+2017/02/05 07:06:48.628,[org.usfirst.frc.team5461.robot.commands.DriveWithVL53L0X] INFO,Address, 2, Power, 0.0

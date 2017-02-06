@@ -14,6 +14,7 @@ import java.util.Vector;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.usfirst.frc.team5461.robot.commands.DriveToCollectGear;
 import org.usfirst.frc.team5461.robot.sensors.I2CUpdatableAddress.NACKException;
 import org.usfirst.frc.team5461.robot.sensors.VL53L0XSensors;
 import org.usfirst.frc.team5461.robot.sensors.VL53L0XSensors.NotInitalizedException;
@@ -32,6 +33,7 @@ public class Robot extends IterativeRobot {
 	public static VL53L0XSensors distance;
 
 	Command autonomousCommand;
+	Command driveCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 	static Logger logger = LoggerFactory.getLogger(Robot.class);
     DataLogger dataLogger;
@@ -75,11 +77,10 @@ public class Robot extends IterativeRobot {
 			logger.info("NACKException: VL53L0X sensors not initialized!!!!!");
 			System.out.println("VL53L0X sensors not initialized!!!!!");
 		}
-//		if (!success){
-//			logger.info("Error starting distance sensors");
-//		}
+
 		oi = new OI();
 		SmartDashboard.putData("Auto mode", chooser);
+		driveCommand = new DriveToCollectGear();
 	}
 
 	/**
@@ -94,6 +95,9 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void disabledPeriodic() {
+		if (!driveCommand.isCanceled()) {
+			driveCommand.cancel();
+		}
 		Scheduler.getInstance().run();
 	}
 
@@ -140,7 +144,8 @@ public class Robot extends IterativeRobot {
 		// this line or comment it out.
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
-		System.out.println("teleopInit:");
+		logger.info("Starting DriveToCollectGear:");
+		driveCommand.start();
 	}
 
 	/**
@@ -149,31 +154,30 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		Vector<Integer> results;
-		try {
-			results = distance.readRangeSingleMillimeters();
-		} catch (NACKException nackEx) {
-			System.out.println("VL53L0X sensors NACK:");
-			return;
-		} catch (NotInitalizedException NotIinitEx) {
-			System.out.println();
-			logger.info("VL53L0X sensors Not Initialized:");
-			return;
-		}
-		StringBuilder sb = new StringBuilder();
-		sb.append("Range1,");
-		sb.append(Integer.toString(results.get(0)));
-		sb.append(",Range2,");
-		sb.append(Integer.toString(results.get(1)));
-		sb.append("\n");
-//		System.out.println(sb.toString());
-		logger.info(sb.toString());
-		try {
-			Thread.sleep(5);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		results.clear();
+//		Vector<Integer> results;
+//		try {
+//			results = distance.readRangeSingleMillimeters();
+//		} catch (NACKException nackEx) {
+//			System.out.println("VL53L0X sensors NACK:");
+//			return;
+//		} catch (NotInitalizedException NotIinitEx) {
+//			System.out.println();
+//			logger.info("VL53L0X sensors Not Initialized:");
+//			return;
+//		}
+//		StringBuilder sb = new StringBuilder();
+//		sb.append("Range1,");
+//		sb.append(Integer.toString(results.get(0)));
+//		sb.append(",Range2,");
+//		sb.append(Integer.toString(results.get(1)));
+//		sb.append("\n");
+//		logger.info(sb.toString());
+//		try {
+//			Thread.sleep(5);
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
+//		results.clear();
 	}
 
 	/**
