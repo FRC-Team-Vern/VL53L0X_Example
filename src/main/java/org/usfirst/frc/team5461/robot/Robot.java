@@ -12,10 +12,8 @@ import java.io.File;
 import java.util.TimeZone;
 import java.util.Vector;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.usfirst.frc.team5461.robot.commands.DriveToCollectGear;
-import org.usfirst.frc.team5461.robot.sensors.I2CUpdatableAddress.NACKException;
+import org.usfirst.frc.team5461.robot.sensors.VL53L0X.NACKException;
 import org.usfirst.frc.team5461.robot.sensors.VL53L0XSensors;
 import org.usfirst.frc.team5461.robot.sensors.VL53L0XSensors.NotInitalizedException;
 
@@ -35,52 +33,26 @@ public class Robot extends IterativeRobot {
 	Command autonomousCommand;
 	Command driveCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
-	static Logger logger = LoggerFactory.getLogger(Robot.class);
-    DataLogger dataLogger;
+//	static Logger logger = LoggerFactory.getLogger(Robot.class);
+//    DataLogger dataLogger;
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
 	 */
 	@Override
 	public void robotInit() {
-		TimeZone.setDefault(TimeZone.getTimeZone("America/Denver"));
-		
-		File logDirectory = null;
-		if (logDirectory == null) logDirectory = findLogDirectory(new File("/u"));
-		if (logDirectory == null) logDirectory = findLogDirectory(new File("/v"));
-		if (logDirectory == null) logDirectory = findLogDirectory(new File("/x"));
-		if (logDirectory == null) logDirectory = findLogDirectory(new File("/y"));
-		if (logDirectory == null) {
-			logDirectory = new File("/home/lvuser/logs");
-		    if (!logDirectory.exists())
-		    {
-			    logDirectory.mkdir();
-		    }
-		}
-		if (logDirectory != null && logDirectory.isDirectory())
-		{
-			String logMessage = String.format("Log directory is %s\n", logDirectory);
-			System.out.print (logMessage);
-			EventLogging.writeToDS(logMessage);
-			EventLogging.setup(logDirectory);
-			dataLogger = new DataLogger(logDirectory);
-			dataLogger.setMinimumInterval(1000);
-		}
 
-		logger.info ("Starting robotInit");
 		distance = new VL53L0XSensors();
 		boolean success = false;
 		try {
 			success = distance.init();
 			System.out.println("Distance sensors intialized!!!!!");
 		} catch (NACKException e) {
-			logger.info("NACKException: VL53L0X sensors not initialized!!!!!");
 			System.out.println("VL53L0X sensors not initialized!!!!!");
 		}
 
 		oi = new OI();
 		SmartDashboard.putData("Auto mode", chooser);
-		driveCommand = new DriveToCollectGear();
 	}
 
 	/**
@@ -142,10 +114,6 @@ public class Robot extends IterativeRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		if (autonomousCommand != null)
-			autonomousCommand.cancel();
-		logger.info("Starting DriveToCollectGear:");
-		driveCommand.start();
 	}
 
 	/**
@@ -186,14 +154,5 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void testPeriodic() {
 		LiveWindow.run();
-	}
-	public File findLogDirectory (File root) {
-		// does the root directory exist?
-		if (!root.isDirectory()) return null;
-		
-		File logDirectory = new File(root, "logs");
-		if (!logDirectory.isDirectory()) return null;
-		
-		return logDirectory;
 	}
 }

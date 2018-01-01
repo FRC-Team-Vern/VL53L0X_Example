@@ -1,10 +1,8 @@
 package org.usfirst.frc.team5461.robot.sensors;
 
 import java.util.Vector;
-
-import org.usfirst.frc.team5461.robot.sensors.I2CUpdatableAddress.NACKException;
-
 import edu.wpi.first.wpilibj.DigitalOutput;
+import org.usfirst.frc.team5461.robot.sensors.VL53L0X.NACKException;
 
 /**
  *
@@ -95,12 +93,7 @@ public class VL53L0XSensors {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     }
-    
-    public void close() {
-    	vl53l0x1.close();
-    	vl53l0x2.close();
-    }
-    
+
     public class NotInitalizedException extends Exception{}
     
 }
