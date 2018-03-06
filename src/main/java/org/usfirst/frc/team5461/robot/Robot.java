@@ -1,21 +1,16 @@
 
 package org.usfirst.frc.team5461.robot;
 
-import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import java.io.File;
-import java.util.TimeZone;
-import java.util.Vector;
-
-import org.usfirst.frc.team5461.robot.commands.DriveToCollectGear;
 import org.usfirst.frc.team5461.robot.sensors.VL53L0X.NACKException;
 import org.usfirst.frc.team5461.robot.sensors.VL53L0XSensors;
-import org.usfirst.frc.team5461.robot.sensors.VL53L0XSensors.NotInitalizedException;
+
+import java.util.Vector;
 
 
 /**
@@ -25,14 +20,14 @@ import org.usfirst.frc.team5461.robot.sensors.VL53L0XSensors.NotInitalizedExcept
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
-public class Robot extends IterativeRobot {
+public class Robot extends TimedRobot {
 
-	public static OI oi;
+//	public static OI oi;
 	public static VL53L0XSensors distance;
-
-	Command autonomousCommand;
-	Command driveCommand;
-	SendableChooser<Command> chooser = new SendableChooser<>();
+//
+//	Command autonomousCommand;
+//	Command driveCommand;
+//	SendableChooser<Command> chooser = new SendableChooser<>();
 //	static Logger logger = LoggerFactory.getLogger(Robot.class);
 //    DataLogger dataLogger;
 	/**
@@ -51,8 +46,8 @@ public class Robot extends IterativeRobot {
 			System.out.println("VL53L0X sensors not initialized!!!!!");
 		}
 
-		oi = new OI();
-		SmartDashboard.putData("Auto mode", chooser);
+//		oi = new OI();
+//		SmartDashboard.putData("Auto mode", chooser);
 	}
 
 	/**
@@ -67,10 +62,10 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void disabledPeriodic() {
-		if (!driveCommand.isCanceled()) {
-			driveCommand.cancel();
-		}
-		Scheduler.getInstance().run();
+//		if (!driveCommand.isCanceled()) {
+//			driveCommand.cancel();
+//		}
+//		Scheduler.getInstance().run();
 	}
 
 	/**
@@ -86,18 +81,18 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		autonomousCommand = chooser.getSelected();
-
-		/*
-		 * String autoSelected = SmartDashboard.getString("Auto Selector",
-		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-		 * = new MyAutoCommand(); break; case "Default Auto": default:
-		 * autonomousCommand = new ExampleCommand(); break; }
-		 */
-
-		// schedule the autonomous command (example)
-		if (autonomousCommand != null)
-			autonomousCommand.start();
+//		autonomousCommand = chooser.getSelected();
+//
+//		/*
+//		 * String autoSelected = SmartDashboard.getString("Auto Selector",
+//		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
+//		 * = new MyAutoCommand(); break; case "Default Auto": default:
+//		 * autonomousCommand = new ExampleCommand(); break; }
+//		 */
+//
+//		// schedule the autonomous command (example)
+//		if (autonomousCommand != null)
+//			autonomousCommand.start();
 	}
 
 	/**
@@ -122,30 +117,29 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-//		Vector<Integer> results;
-//		try {
-//			results = distance.readRangeSingleMillimeters();
-//		} catch (NACKException nackEx) {
-//			System.out.println("VL53L0X sensors NACK:");
-//			return;
-//		} catch (NotInitalizedException NotIinitEx) {
-//			System.out.println();
-//			logger.info("VL53L0X sensors Not Initialized:");
-//			return;
-//		}
-//		StringBuilder sb = new StringBuilder();
-//		sb.append("Range1,");
-//		sb.append(Integer.toString(results.get(0)));
+		Vector<Integer> results;
+		try {
+			results = distance.readRangeSingleMillimeters();
+		} catch (NACKException nackEx) {
+			System.out.println("VL53L0X sensors NACK:");
+			return;
+		} catch (VL53L0XSensors.NotInitalizedException NotIinitEx) {
+            System.out.println("VL53L0X not initialized");
+			return;
+		}
+		StringBuilder sb = new StringBuilder();
+		sb.append("Range1: ");
+		sb.append(Integer.toString(results.get(0)));
 //		sb.append(",Range2,");
 //		sb.append(Integer.toString(results.get(1)));
-//		sb.append("\n");
-//		logger.info(sb.toString());
-//		try {
-//			Thread.sleep(5);
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		}
-//		results.clear();
+		sb.append("\n");
+		System.out.println(sb.toString());
+		try {
+			Thread.sleep(5);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		results.clear();
 	}
 
 	/**
@@ -153,6 +147,6 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void testPeriodic() {
-		LiveWindow.run();
+
 	}
 }

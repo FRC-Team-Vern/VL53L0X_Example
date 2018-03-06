@@ -1,12 +1,10 @@
 package org.usfirst.frc.team5461.robot.sensors;
 
-import java.lang.reflect.Field;
 import java.nio.ByteBuffer;
 
-import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.hal.HALUtil;
 
-public class VL53L0X extends I2C {
+public class VL53L0X extends I2CUpdatableAddress {
 	
 	private Port m_port = Port.kOnboard;
 	//Store address given when the class is initialized.
@@ -16,8 +14,8 @@ public class VL53L0X extends I2C {
 	private int deviceAddress;
 	private byte stop_variable;
 	private int measurement_timing_budget_us;
-	private short timeout_start_ms;
-	private short io_timeout = 0;
+	private int timeout_start_ms;
+	private int io_timeout = 0;
 	private boolean did_timeout;
 	
 	private enum BYTE_SIZE {
@@ -29,16 +27,16 @@ public class VL53L0X extends I2C {
 		BYTE_SIZE(int value) {
 			this.value = value;
 		}
-	};
+	}
 	
 	private enum vcselPeriodType { 
 		VcselPeriodPreRange, VcselPeriodFinalRange
-	};
+	}
 	
 	private class SequenceStepEnables
     {
       byte tcc, msrc, dss, pre_range, final_range;
-    };
+    }
 
     private class SequenceStepTimeouts
     {
@@ -49,22 +47,18 @@ public class VL53L0X extends I2C {
     };
     
     private class BooleanCarrier {
-    	public boolean value = false;
-    	public BooleanCarrier(boolean inValue) {
+    	boolean value = false;
+    	BooleanCarrier(boolean inValue) {
     		this.value = inValue;
     	}
     }
 
 	public VL53L0X(int deviceAddress) {
-		super(Port.kOnboard, DEFAULT_ADDRESS);
-		this.deviceAddress = deviceAddress;
-		this.did_timeout = false;
-		
+		super(Port.kOnboard, DEFAULT_ADDRESS, DEFAULT_ADDRESS + deviceAddress);
+        this.did_timeout = false;
 	}
 	  
 	public final boolean init(boolean io_2v8) throws NACKException {
-		// Start by changing to new address. This is required after every power up.
-		setAddress(DEFAULT_ADDRESS + deviceAddress);
 		// sensor uses 1V8 mode for I/O by default; switch to 2V8 mode if necessary
 		if (io_2v8) {
 			write(VL53L0X_Constants.VHV_CONFIG_PAD_SCL_SDA__EXTSUP_HV.value,
@@ -122,9 +116,9 @@ public class VL53L0X extends I2C {
 			}
 		}
 
-		ByteBuffer ref_spad_map2 = ByteBuffer.allocateDirect(6);
-		ref_spad_map2.put(ref_spad_map_array);
-		writeBulk(VL53L0X_Constants.GLOBAL_CONFIG_SPAD_ENABLES_REF_0.value, ref_spad_map2, 6);
+//		ByteBuffer ref_spad_map2 = ByteBuffer.allocateDirect(6);
+//		ref_spad_map2.put(ref_spad_map_array);
+		writeBulk(VL53L0X_Constants.GLOBAL_CONFIG_SPAD_ENABLES_REF_0.value, ref_spad_map_array, 6);
 
 		write(0xFF, 0x01);
 		write(0x00, 0x00);
@@ -321,53 +315,59 @@ public class VL53L0X extends I2C {
 //	  byte_buffer_range.clear();
 	  return range;
 	}
+//
+//	public final int setAddress(int new_address) throws NACKException {
+//		//NOTICE: CHANGING THE ADDRESS IS NOT STORED IN NON-VOLATILE MEMORY
+//		// POWER CYCLING THE DEVICE REVERTS ADDRESS BACK TO 0x29
+//        int privateDeviceAddress = 0;
+//        try {
+//            Field privateDeviceAddressField = I2C.class.getDeclaredField("m_deviceAddress");
+//
+//            privateDeviceAddressField.setAccessible(true);
+//
+//            privateDeviceAddress = (int) privateDeviceAddressField.get(this);
+//
+////        catch (IllegalAccessException e) {
+////            e.printStackTrace();
+////        }
+//
+//            // Device addresses cannot go higher than 127
+//            if (privateDeviceAddress == new_address || new_address > 127)
+//            {
+//                return privateDeviceAddress;
+//            }
+//
+//            boolean success = write(VL53L0X_Constants.I2C_SLAVE_DEVICE_ADDRESS.value, new_address & 0x7F);
+//            if (success) {
+//                privateDeviceAddressField.set(this, new_address);
+//            }
+//        } catch (NoSuchFieldException | IllegalAccessException e) {
+//            e.printStackTrace();
+//        }
+//        return getAddressFromDevice();
+//	}
 	
-	public final int setAddress(int new_address) throws NACKException {
-		//NOTICE: CHANGING THE ADDRESS IS NOT STORED IN NON-VOLATILE MEMORY
-		// POWER CYCLING THE DEVICE REVERTS ADDRESS BACK TO 0x29
-        int privateDeviceAddress = 0;
-        try {
-            Field privateDeviceAddressField = I2C.class.getDeclaredField("m_deviceAddress");
-
-            privateDeviceAddressField.setAccessible(true);
-
-            privateDeviceAddress = (int) privateDeviceAddressField.get(this);
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-
-        // Device addresses cannot go higher than 127
-        if (privateDeviceAddress == new_address || new_address > 127)
-		{
-			return privateDeviceAddress;
-		}
-
-		boolean success = write(VL53L0X_Constants.I2C_SLAVE_DEVICE_ADDRESS.value, new_address & 0x7F);
-		if (success) {
-            privateDeviceAddress = new_address;
-		}
-		return getAddressFromDevice();
-	}
-	
-	public final int getAddressFromDevice() {
+	private int getAddressFromDevice() {
 		ByteBuffer deviceAddress = ByteBuffer.allocateDirect(BYTE_SIZE.SINGLE.value);
 		read(VL53L0X_Constants.I2C_SLAVE_DEVICE_ADDRESS.value, BYTE_SIZE.SINGLE.value, deviceAddress);
 		return deviceAddress.get();
 	}
 	
 	// Writing two bytes of data back-to-back is a special case of writeBulk
-	public synchronized boolean write16(int registerAddress, int data) {
+	private synchronized boolean write16(int registerAddress, int data) {
 		ByteBuffer registerWithDataToSendBuffer = ByteBuffer.allocateDirect(3);
 		registerWithDataToSendBuffer.put((byte) registerAddress);
 		registerWithDataToSendBuffer.putShort(1, (short)data);		
 		return writeBulk(registerWithDataToSendBuffer, 3);
 	}
 	
-	public synchronized boolean writeBulk(int registerAddress, ByteBuffer data, int size) {
+	private synchronized boolean writeBulk(int registerAddress, byte[] data, int size) {
 		ByteBuffer registerWithDataToSendBuffer = ByteBuffer.allocateDirect(size + 1);
-		registerWithDataToSendBuffer.put(data);
+		registerWithDataToSendBuffer.put((byte) registerAddress);
+		for (int i=0; i < size; ++i) {
+		    registerWithDataToSendBuffer.put(i+1, data[i]);
+        }
+//		registerWithDataToSendBuffer.put(data, 1, size);
 		return writeBulk(registerWithDataToSendBuffer, size + 1);
 	}
 	
@@ -664,13 +664,13 @@ public class VL53L0X extends I2C {
 	
 	// Record the current time to check an upcoming timeout against
 	private int startTimeout() {
-		double now = HALUtil.getFPGATime() * 1000;
+		double now = HALUtil.getFPGATime();
 		return (timeout_start_ms = (short) now);
 	}
 	
 	// Check if timeout is enabled (set to nonzero value) and has expired
 	private boolean checkTimeoutExpired() {
-		int now = (int) (HALUtil.getFPGATime() * 1000);
+		int now = (int) (HALUtil.getFPGATime());
 		return (io_timeout > 0 && (now - timeout_start_ms) > io_timeout);
 	}
 	

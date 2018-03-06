@@ -1,21 +1,22 @@
-package org.usfirst.frc.team5461.robot.sensors;
-
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 /*----------------------------------------------------------------------------*/
-/* Copyright (c) FIRST 2008-2017. All Rights Reserved.                        */
+/* Copyright (c) 2008-2018 FIRST. All Rights Reserved.                        */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
+
+package org.usfirst.frc.team5461.robot.sensors;
+
+import java.lang.reflect.Field;
 import java.nio.ByteBuffer;
 
-import edu.wpi.first.wpilibj.SensorBase;
+import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.hal.FRCNetComm.tResourceType;
 import edu.wpi.first.wpilibj.hal.HAL;
 import edu.wpi.first.wpilibj.hal.I2CJNI;
-import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import edu.wpi.first.wpilibj.util.BoundaryException;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * I2C bus interface class.
@@ -23,30 +24,21 @@ import edu.wpi.first.wpilibj.util.BoundaryException;
  * <p>This class is intended to be used by sensor (and other I2C device) drivers. It probably should
  * not be used directly.
  */
-public class I2CUpdatableAddress extends SensorBase {
-  @Override
-  public void setName(String subsystem, String name) {
-
-  }
-
-  @Override
-  public void initSendable(SendableBuilder builder) {
-
-  }
-
+public class I2CUpdatableAddress {
   public enum Port {
     kOnboard(0), kMXP(1);
 
     @SuppressWarnings("MemberName")
     public final int value;
 
-    private Port(int value) {
+    Port(int value) {
       this.value = value;
     }
   }
 
-  private final Port m_port;
-  protected int m_deviceAddress;
+  private final int m_port;
+  private int m_defaultAddress;
+  private int m_deviceAddress;
 
   /**
    * Constructor.
@@ -54,19 +46,38 @@ public class I2CUpdatableAddress extends SensorBase {
    * @param port          The I2C port the device is connected to.
    * @param deviceAddress The address of the device on the I2C bus.
    */
-  public I2CUpdatableAddress(Port port, int deviceAddress) {
-    m_port = port;
-    m_deviceAddress = deviceAddress;
+    public I2CUpdatableAddress(Port port, int defaultAddress, int deviceAddress) {
+      m_port = port.value;
+      m_defaultAddress = defaultAddress;
+      m_deviceAddress = defaultAddress;
 
-    I2CJNI.i2CInitialize((byte) port.value);
+      I2CJNI.i2CInitialize((byte) port.value);
+      setAddress(deviceAddress);
 
-    HAL.report(tResourceType.kResourceType_I2C, deviceAddress);
-  }
+      HAL.report(tResourceType.kResourceType_I2C, deviceAddress);
+    }
+
+    private final int setAddress(int new_address) {
+        //NOTICE: CHANGING THE ADDRESS IS NOT STORED IN NON-VOLATILE MEMORY
+        // POWER CYCLING THE DEVICE REVERTS ADDRESS BACK TO 0x29
+        if (m_defaultAddress == new_address || new_address > 127)
+        {
+            return m_defaultAddress;
+        }
+
+        boolean aborted = write(VL53L0X_Constants.I2C_SLAVE_DEVICE_ADDRESS.value, new_address & 0x7F);
+        if (!aborted) {
+            m_deviceAddress = new_address;
+        }
+
+        return new_address;
+    }
 
   /**
    * Destructor.
    */
   public void free() {
+    I2CJNI.i2CClose(m_port);
   }
 
   /**
@@ -83,20 +94,15 @@ public class I2CUpdatableAddress extends SensorBase {
    */
   public synchronized boolean transaction(byte[] dataToSend, int sendSize,
                                           byte[] dataReceived, int receiveSize) {
-    final int status;
-
-    ByteBuffer dataToSendBuffer = ByteBuffer.allocateDirect(sendSize);
-    if (sendSize > 0 && dataToSend != null) {
-      dataToSendBuffer.put(dataToSend);
+    if (dataToSend.length < sendSize) {
+      throw new IllegalArgumentException("dataToSend is too small, must be at least " + sendSize);
     }
-    ByteBuffer dataReceivedBuffer = ByteBuffer.allocateDirect(receiveSize);
-
-    status = I2CJNI.i2CTransaction((byte) m_port.value, (byte) m_deviceAddress, dataToSendBuffer,
-                                   (byte) sendSize, dataReceivedBuffer, (byte) receiveSize);
-    if (receiveSize > 0 && dataReceived != null) {
-      dataReceivedBuffer.get(dataReceived);
+    if (dataReceived.length < receiveSize) {
+      throw new IllegalArgumentException(
+              "dataReceived is too small, must be at least " + receiveSize);
     }
-    return status < receiveSize;
+    return I2CJNI.i2CTransactionB(m_port, (byte) m_deviceAddress, dataToSend,
+            (byte) sendSize, dataReceived, (byte) receiveSize) < 0;
   }
 
   /**
@@ -105,16 +111,17 @@ public class I2CUpdatableAddress extends SensorBase {
    * <p>This is a lower-level interface to the I2C hardware giving you more control over each
    * transaction.
    *
-   * @param dataToSend   Buffer of data to send as part of the transaction. Must be allocated using
-   *                     ByteBuffer.allocateDirect().
+   * @param dataToSend   Buffer of data to send as part of the transaction.
    * @param sendSize     Number of bytes to send as part of the transaction.
-   * @param dataReceived Buffer to read data into. Must be allocated using {@link
-   *                     ByteBuffer#allocateDirect(int)}.
+   * @param dataReceived Buffer to read data into.
    * @param receiveSize  Number of bytes to read from the device.
    * @return Transfer Aborted... false for success, true for aborted.
    */
   public synchronized boolean transaction(ByteBuffer dataToSend, int sendSize,
                                           ByteBuffer dataReceived, int receiveSize) {
+    if (dataToSend.hasArray() && dataReceived.hasArray()) {
+      return transaction(dataToSend.array(), sendSize, dataReceived.array(), receiveSize);
+    }
     if (!dataToSend.isDirect()) {
       throw new IllegalArgumentException("dataToSend must be a direct buffer");
     }
@@ -126,18 +133,11 @@ public class I2CUpdatableAddress extends SensorBase {
     }
     if (dataReceived.capacity() < receiveSize) {
       throw new IllegalArgumentException(
-          "dataReceived is too small, must be at least " + receiveSize);
+              "dataReceived is too small, must be at least " + receiveSize);
     }
 
-    boolean result = I2CJNI.i2CTransaction((byte) m_port.value, (byte) m_deviceAddress, dataToSend,
-                                 (byte) sendSize, dataReceived, (byte) receiveSize) < receiveSize;
-    try {
-		destroyDirectByteBuffer(dataToSend);
-	} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException
-			| InvocationTargetException e) {
-		e.printStackTrace();
-	}
-    return result;
+    return I2CJNI.i2CTransaction(m_port, (byte) m_deviceAddress, dataToSend,
+            (byte) sendSize, dataReceived, (byte) receiveSize) < 0;
   }
 
   /**
@@ -149,7 +149,7 @@ public class I2CUpdatableAddress extends SensorBase {
    * @return Transfer Aborted... false for success, true for aborted.
    */
   public boolean addressOnly() {
-    return transaction((byte[]) null, (byte) 0, null, (byte) 0);
+    return transaction(new byte[0], (byte) 0, new byte[0], (byte) 0);
   }
 
   /**
@@ -159,30 +159,14 @@ public class I2CUpdatableAddress extends SensorBase {
    *
    * @param registerAddress The address of the register on the device to be written.
    * @param data            The byte to write to the register on the device.
- * @throws NACKException 
+   * @return Transfer Aborted... false for success, true for aborted.
    */
-  public synchronized boolean write(int registerAddress, int data) throws NACKException {
+  public synchronized boolean write(int registerAddress, int data) {
     byte[] buffer = new byte[2];
     buffer[0] = (byte) registerAddress;
     buffer[1] = (byte) data;
-
-    ByteBuffer dataToSendBuffer = ByteBuffer.allocateDirect(2);
-    dataToSendBuffer.put(buffer);
-
-    int result = I2CJNI.i2CWrite((byte) m_port.value, (byte) m_deviceAddress, dataToSendBuffer,
-                           (byte) buffer.length);
-    boolean bufferLengthResult = (result < buffer.length);
-    if (result == -1){
-    	throw new NACKException();
-    }
-    		
-    try {
-		destroyDirectByteBuffer(dataToSendBuffer);
-	} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException
-			| InvocationTargetException e) {
-		e.printStackTrace();
-	}
-    return bufferLengthResult;
+    return I2CJNI.i2CWriteB(m_port, (byte) m_deviceAddress, buffer,
+            (byte) buffer.length) < 0;
   }
 
   /**
@@ -191,20 +175,10 @@ public class I2CUpdatableAddress extends SensorBase {
    * <p>Write multiple bytes to a register on a device and wait until the transaction is complete.
    *
    * @param data The data to write to the device.
+   * @return Transfer Aborted... false for success, true for aborted.
    */
   public synchronized boolean writeBulk(byte[] data) {
-    ByteBuffer dataToSendBuffer = ByteBuffer.allocateDirect(data.length);
-    dataToSendBuffer.put(data);
-
-    boolean result = I2CJNI.i2CWrite((byte) m_port.value, (byte) m_deviceAddress, dataToSendBuffer,
-                           (byte) data.length) < data.length;
-    try {
-		destroyDirectByteBuffer(dataToSendBuffer);
-	} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException
-			| InvocationTargetException e) {
-		e.printStackTrace();
-	}
-    return result;
+    return writeBulk(data, data.length);
   }
 
   /**
@@ -212,18 +186,40 @@ public class I2CUpdatableAddress extends SensorBase {
    *
    * <p>Write multiple bytes to a register on a device and wait until the transaction is complete.
    *
-   * @param data The data to write to the device. Must be created using ByteBuffer.allocateDirect().
+   * @param data The data to write to the device.
+   * @param size The number of data bytes to write.
+   * @return Transfer Aborted... false for success, true for aborted.
+   */
+  public synchronized boolean writeBulk(byte[] data, int size) {
+    if (data.length < size) {
+      throw new IllegalArgumentException(
+              "buffer is too small, must be at least " + size);
+    }
+    return I2CJNI.i2CWriteB(m_port, (byte) m_deviceAddress, data, (byte) size) < 0;
+  }
+
+  /**
+   * Execute a write transaction with the device.
+   *
+   * <p>Write multiple bytes to a register on a device and wait until the transaction is complete.
+   *
+   * @param data The data to write to the device.
+   * @param size The number of data bytes to write.
+   * @return Transfer Aborted... false for success, true for aborted.
    */
   public synchronized boolean writeBulk(ByteBuffer data, int size) {
+    if (data.hasArray()) {
+      return writeBulk(data.array(), size);
+    }
     if (!data.isDirect()) {
       throw new IllegalArgumentException("must be a direct buffer");
     }
     if (data.capacity() < size) {
       throw new IllegalArgumentException(
-          "buffer is too small, must be at least " + size);
+              "buffer is too small, must be at least " + size);
     }
 
-    return I2CJNI.i2CWrite((byte) m_port.value, (byte) m_deviceAddress, data, (byte) size) < size;
+    return I2CJNI.i2CWrite(m_port, (byte) m_deviceAddress, data, (byte) size) < 0;
   }
 
   /**
@@ -238,18 +234,22 @@ public class I2CUpdatableAddress extends SensorBase {
    * @return Transfer Aborted... false for success, true for aborted.
    */
   public boolean read(int registerAddress, int count, byte[] buffer) {
+    requireNonNull(buffer, "Null return buffer was given");
+
     if (count < 1) {
       throw new BoundaryException("Value must be at least 1, " + count + " given");
     }
-
-    if (buffer == null) {
-      throw new NullPointerException("Null return buffer was given");
+    if (buffer.length < count) {
+      throw new IllegalArgumentException("buffer is too small, must be at least " + count);
     }
+
     byte[] registerAddressArray = new byte[1];
     registerAddressArray[0] = (byte) registerAddress;
 
     return transaction(registerAddressArray, registerAddressArray.length, buffer, count);
   }
+
+  private ByteBuffer m_readDataToSendBuffer = null;
 
   /**
    * Execute a read transaction with the device.
@@ -259,13 +259,16 @@ public class I2CUpdatableAddress extends SensorBase {
    *
    * @param registerAddress The register to read first in the transaction.
    * @param count           The number of bytes to read in the transaction.
-   * @param buffer          A buffer to store the data read from the device. Must be created using
-   *                        ByteBuffer.allocateDirect().
+   * @param buffer          A buffer to store the data read from the device.
    * @return Transfer Aborted... false for success, true for aborted.
    */
   public boolean read(int registerAddress, int count, ByteBuffer buffer) {
     if (count < 1) {
       throw new BoundaryException("Value must be at least 1, " + count + " given");
+    }
+
+    if (buffer.hasArray()) {
+      return read(registerAddress, count, buffer.array());
     }
 
     if (!buffer.isDirect()) {
@@ -275,10 +278,14 @@ public class I2CUpdatableAddress extends SensorBase {
       throw new IllegalArgumentException("buffer is too small, must be at least " + count);
     }
 
-    ByteBuffer dataToSendBuffer = ByteBuffer.allocateDirect(1);
-    dataToSendBuffer.put(0, (byte) registerAddress);
+    synchronized (this) {
+      if (m_readDataToSendBuffer == null) {
+        m_readDataToSendBuffer = ByteBuffer.allocateDirect(1);
+      }
+      m_readDataToSendBuffer.put(0, (byte) registerAddress);
 
-    return transaction(dataToSendBuffer, 1, buffer, count);
+      return transaction(m_readDataToSendBuffer, 1, buffer, count);
+    }
   }
 
   /**
@@ -291,20 +298,16 @@ public class I2CUpdatableAddress extends SensorBase {
    * @return Transfer Aborted... false for success, true for aborted.
    */
   public boolean readOnly(byte[] buffer, int count) {
+    requireNonNull(buffer, "Null return buffer was given");
     if (count < 1) {
       throw new BoundaryException("Value must be at least 1, " + count + " given");
     }
-
-    if (buffer == null) {
-      throw new NullPointerException("Null return buffer was given");
+    if (buffer.length < count) {
+      throw new IllegalArgumentException("buffer is too small, must be at least " + count);
     }
 
-    ByteBuffer dataReceivedBuffer = ByteBuffer.allocateDirect(count);
-
-    int retVal = I2CJNI.i2CRead((byte) m_port.value, (byte) m_deviceAddress, dataReceivedBuffer,
-                                (byte) count);
-    dataReceivedBuffer.get(buffer);
-    return retVal < count;
+    return I2CJNI.i2CReadB(m_port, (byte) m_deviceAddress, buffer,
+            (byte) count) < 0;
   }
 
   /**
@@ -312,15 +315,18 @@ public class I2CUpdatableAddress extends SensorBase {
    *
    * <p>Read bytes from a device. This method does not write any data to prompt the device.
    *
-   * @param buffer A pointer to the array of bytes to store the data read from the device. Must be
-   *               created using ByteBuffer.allocateDirect().
+   * @param buffer A pointer to the array of bytes to store the data read from the device.
    * @param count  The number of bytes to read in the transaction.
    * @return Transfer Aborted... false for success, true for aborted.
    */
   public boolean readOnly(ByteBuffer buffer, int count) {
     if (count < 1) {
       throw new BoundaryException("Value must be at least 1, " + count
-          + " given");
+              + " given");
+    }
+
+    if (buffer.hasArray()) {
+      return readOnly(buffer.array(), count);
     }
 
     if (!buffer.isDirect()) {
@@ -330,8 +336,8 @@ public class I2CUpdatableAddress extends SensorBase {
       throw new IllegalArgumentException("buffer is too small, must be at least " + count);
     }
 
-    return I2CJNI.i2CRead((byte) m_port.value, (byte) m_deviceAddress, buffer, (byte) count)
-        < count;
+    return I2CJNI.i2CRead(m_port, (byte) m_deviceAddress, buffer, (byte) count)
+            < 0;
   }
 
   /*
@@ -361,41 +367,25 @@ public class I2CUpdatableAddress extends SensorBase {
   public boolean verifySensor(int registerAddress, int count,
                               byte[] expected) {
     // TODO: Make use of all 7 read bytes
-    ByteBuffer dataToSendBuffer = ByteBuffer.allocateDirect(1);
+    byte[] dataToSend = new byte[1];
 
-    ByteBuffer deviceData = ByteBuffer.allocateDirect(4);
+    byte[] deviceData = new byte[4];
     for (int i = 0, curRegisterAddress = registerAddress;
          i < count; i += 4, curRegisterAddress += 4) {
       int toRead = count - i < 4 ? count - i : 4;
       // Read the chunk of data. Return false if the sensor does not
       // respond.
-      dataToSendBuffer.put(0, (byte) curRegisterAddress);
-      if (transaction(dataToSendBuffer, 1, deviceData, toRead)) {
+      dataToSend[0] = (byte) curRegisterAddress;
+      if (transaction(dataToSend, 1, deviceData, toRead)) {
         return false;
       }
 
       for (byte j = 0; j < toRead; j++) {
-        if (deviceData.get(j) != expected[i + j]) {
+        if (deviceData[j] != expected[i + j]) {
           return false;
         }
       }
     }
     return true;
   }
-  
-  public void close() {
-	  I2CJNI.i2CClose((byte) m_port.value);
-  }
-  
-  public static void destroyDirectByteBuffer(ByteBuffer toBeDestroyed) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {	  
-	  Method cleanerMethod = toBeDestroyed.getClass().getMethod("cleaner");
-	  cleanerMethod.setAccessible(true);
-	  Object cleaner = cleanerMethod.invoke(toBeDestroyed);
-	  Method cleanMethod = cleaner.getClass().getMethod("clean");
-	  cleanMethod.setAccessible(true);
-	  cleanMethod.invoke(cleaner);			  
-  }
-  
-  public class NACKException extends Exception{}
 }
-

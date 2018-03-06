@@ -1,6 +1,10 @@
-/bin/
-/build/
-/.classpath
-/.project
+build/
+.gradle/
+.idea/
+.classpath
+.project
 /build.properties
-/build.xml
+*.xml
+*.iml
+*.iws
+*.ipr

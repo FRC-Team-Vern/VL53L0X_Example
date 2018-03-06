@@ -34,21 +34,21 @@ public class DriveWithVL53L0X extends PIDCommand {
     @Override
     protected double returnPIDInput() {
     	
-    	int result;
-		try {
-			result = Robot.distance.readRangeSingleMillimeters(m_address);
-		} catch (NACKException NACKEx) {
-			result = lastValue;
-		} catch (NotInitalizedException NotInitEx) {
-			return distanceFromTarget;
-		}
-    	
-		// Cap return result to max distance of concern
-    	if (result > DistanceContract.max_distance){
-    		result = DistanceContract.max_distance;
-    	}
-
-    	lastValue = result;
+    	int result = 0;
+//		try {
+//			result = Robot.distance.readRangeSingleMillimeters(m_address);
+//		} catch (NACKException NACKEx) {
+//			result = lastValue;
+//		} catch (NotInitalizedException NotInitEx) {
+//			return distanceFromTarget;
+//		}
+//
+//		// Cap return result to max distance of concern
+//    	if (result > DistanceContract.max_distance){
+//    		result = DistanceContract.max_distance;
+//    	}
+//
+//    	lastValue = result;
     	return result;
     }
    
