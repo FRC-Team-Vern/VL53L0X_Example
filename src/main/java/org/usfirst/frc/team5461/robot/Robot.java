@@ -2,11 +2,7 @@
 package org.usfirst.frc.team5461.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import org.usfirst.frc.team5461.robot.sensors.VL53L0X.NACKException;
 import org.usfirst.frc.team5461.robot.sensors.VL53L0XSensors;
 

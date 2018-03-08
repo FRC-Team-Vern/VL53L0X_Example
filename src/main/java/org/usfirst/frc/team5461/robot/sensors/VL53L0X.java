@@ -105,7 +105,7 @@ public class VL53L0X extends I2CUpdatableAddress {
 
 		byte[] ref_spad_map_array = new byte[6];
 		ref_spad_map.get(ref_spad_map_array);
-		for (byte i = 0; i < 48; i++) {
+		for (byte i = 0; i < 48; ++i) {
 			if (i < first_spad_to_enable || spads_enabled == spad_count[0]) {
 				// This bit is lower than the first one that should be enabled, or
 				// (reference_spad_count) bits have already been enabled, so zero this bit
@@ -116,8 +116,6 @@ public class VL53L0X extends I2CUpdatableAddress {
 			}
 		}
 
-//		ByteBuffer ref_spad_map2 = ByteBuffer.allocateDirect(6);
-//		ref_spad_map2.put(ref_spad_map_array);
 		writeBulk(VL53L0X_Constants.GLOBAL_CONFIG_SPAD_ENABLES_REF_0.value, ref_spad_map_array, 6);
 
 		write(0xFF, 0x01);
@@ -315,37 +313,6 @@ public class VL53L0X extends I2CUpdatableAddress {
 //	  byte_buffer_range.clear();
 	  return range;
 	}
-//
-//	public final int setAddress(int new_address) throws NACKException {
-//		//NOTICE: CHANGING THE ADDRESS IS NOT STORED IN NON-VOLATILE MEMORY
-//		// POWER CYCLING THE DEVICE REVERTS ADDRESS BACK TO 0x29
-//        int privateDeviceAddress = 0;
-//        try {
-//            Field privateDeviceAddressField = I2C.class.getDeclaredField("m_deviceAddress");
-//
-//            privateDeviceAddressField.setAccessible(true);
-//
-//            privateDeviceAddress = (int) privateDeviceAddressField.get(this);
-//
-////        catch (IllegalAccessException e) {
-////            e.printStackTrace();
-////        }
-//
-//            // Device addresses cannot go higher than 127
-//            if (privateDeviceAddress == new_address || new_address > 127)
-//            {
-//                return privateDeviceAddress;
-//            }
-//
-//            boolean success = write(VL53L0X_Constants.I2C_SLAVE_DEVICE_ADDRESS.value, new_address & 0x7F);
-//            if (success) {
-//                privateDeviceAddressField.set(this, new_address);
-//            }
-//        } catch (NoSuchFieldException | IllegalAccessException e) {
-//            e.printStackTrace();
-//        }
-//        return getAddressFromDevice();
-//	}
 	
 	private int getAddressFromDevice() {
 		ByteBuffer deviceAddress = ByteBuffer.allocateDirect(BYTE_SIZE.SINGLE.value);
@@ -354,10 +321,10 @@ public class VL53L0X extends I2CUpdatableAddress {
 	}
 	
 	// Writing two bytes of data back-to-back is a special case of writeBulk
-	private synchronized boolean write16(int registerAddress, int data) {
+	private synchronized boolean write16(int registerAddress, short data) {
 		ByteBuffer registerWithDataToSendBuffer = ByteBuffer.allocateDirect(3);
 		registerWithDataToSendBuffer.put((byte) registerAddress);
-		registerWithDataToSendBuffer.putShort(1, (short)data);		
+		registerWithDataToSendBuffer.putShort(1, data);
 		return writeBulk(registerWithDataToSendBuffer, 3);
 	}
 	
@@ -394,7 +361,7 @@ public class VL53L0X extends I2CUpdatableAddress {
 	// Defaults to 0.25 MCPS as initialized by the ST API and this library.
 	private boolean setSignalRateLimit(float limit_Mcps) {
 		if (limit_Mcps < 0 || limit_Mcps > 511.99) { return false; }
-		write16(VL53L0X_Constants.FINAL_RANGE_CONFIG_MIN_COUNT_RATE_RTN_LIMIT.value, (int) (limit_Mcps * (1<<7)));
+		write16(VL53L0X_Constants.FINAL_RANGE_CONFIG_MIN_COUNT_RATE_RTN_LIMIT.value, (short) (limit_Mcps * (1<<7)));
 		return true;
 	}
 	

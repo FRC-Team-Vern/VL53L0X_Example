@@ -25,7 +25,7 @@ public class VL53L0XSensors {
 	}
 	
 	public boolean init() throws NACKException {
-		do1.set(true);
+		do2.set(true);
 		// Allow some time for the xshut bit to settle
 		try {
 			Thread.sleep(10);
@@ -36,7 +36,7 @@ public class VL53L0XSensors {
 //		vl53l0x1.setAddress(0x27 + 1);
 		boolean result1 = vl53l0x1.init(true);
 //		do2.set(true);
-//		// Allow some time for the xshut bit to settle
+////		// Allow some time for the xshut bit to settle
 //		try {
 //			Thread.sleep(10);
 //		} catch (InterruptedException e) {
@@ -46,7 +46,7 @@ public class VL53L0XSensors {
 //
 //		boolean result2 = vl53l0x2.init(true);
 		initialized = result1;
-		return result1;
+		return initialized;
 	}
 	
 	public Vector<Integer> readRangeSingleMillimeters() throws NACKException, NotInitalizedException{
@@ -57,7 +57,7 @@ public class VL53L0XSensors {
 		Vector<Integer> results = new Vector<>();
 		int result1 = vl53l0x1.readRangeSingleMillimeters();
 		results.add(result1);
-//		// Give a little wait between reads
+		// Give a little wait between reads
 //		try {
 //			Thread.sleep(10);
 //		} catch (InterruptedException e) {
