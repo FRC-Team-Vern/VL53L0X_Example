@@ -1,8 +1,5 @@
 package org.usfirst.frc.team5461.robot.commands;
 
-import org.usfirst.frc.team5461.robot.Robot;
-import org.usfirst.frc.team5461.robot.sensors.VL53L0X.NACKException;
-import org.usfirst.frc.team5461.robot.sensors.VL53L0XSensors.NotInitalizedException;
 
 import edu.wpi.first.wpilibj.command.PIDCommand;
 

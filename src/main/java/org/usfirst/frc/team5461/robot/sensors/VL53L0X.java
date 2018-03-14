@@ -4,6 +4,9 @@ import java.nio.ByteBuffer;
 
 import edu.wpi.first.wpilibj.hal.HALUtil;
 
+import static org.usfirst.frc.team5461.robot.sensors.VL53L0X.vcselPeriodType.*;
+import static org.usfirst.frc.team5461.robot.sensors.VL53L0X_Constants.*;
+
 public class VL53L0X extends I2CUpdatableAddress {
 	
 	private Port m_port = Port.kOnboard;
@@ -29,7 +32,7 @@ public class VL53L0X extends I2CUpdatableAddress {
 		}
 	}
 	
-	private enum vcselPeriodType { 
+	public enum vcselPeriodType {
 		VcselPeriodPreRange, VcselPeriodFinalRange
 	}
 	
@@ -53,7 +56,7 @@ public class VL53L0X extends I2CUpdatableAddress {
     	}
     }
 
-	public VL53L0X(int deviceAddress) {
+	public VL53L0X(int deviceAddress) throws NACKException {
 		super(Port.kOnboard, DEFAULT_ADDRESS, DEFAULT_ADDRESS + deviceAddress);
         this.did_timeout = false;
 	}
@@ -256,8 +259,18 @@ public class VL53L0X extends I2CUpdatableAddress {
 
 		// VL53L0X_PerformRefCalibration() end
 
+        // Set this last section for long range
+        setLongRange();
+
 		return true;
 	}
+
+	void setLongRange() throws NACKException {
+        setSignalRateLimit(0.1f);
+        // increase laser pulse periods (defaults are 14 and 10 PCLKs)
+        setVcselPulsePeriod(VcselPeriodPreRange, (byte)18);
+        setVcselPulsePeriod(VcselPeriodFinalRange, (byte)14);
+    }
 	
 	// Performs a single-shot range measurement and returns the reading in
 	// millimeters
@@ -314,38 +327,37 @@ public class VL53L0X extends I2CUpdatableAddress {
 	  return range;
 	}
 	
-	private int getAddressFromDevice() {
+	private int getAddressFromDevice() throws NACKException {
 		ByteBuffer deviceAddress = ByteBuffer.allocateDirect(BYTE_SIZE.SINGLE.value);
 		read(VL53L0X_Constants.I2C_SLAVE_DEVICE_ADDRESS.value, BYTE_SIZE.SINGLE.value, deviceAddress);
 		return deviceAddress.get();
 	}
 	
 	// Writing two bytes of data back-to-back is a special case of writeBulk
-	private synchronized boolean write16(int registerAddress, short data) {
+	private synchronized boolean write16(int registerAddress, short data) throws NACKException {
 		ByteBuffer registerWithDataToSendBuffer = ByteBuffer.allocateDirect(3);
 		registerWithDataToSendBuffer.put((byte) registerAddress);
 		registerWithDataToSendBuffer.putShort(1, data);
 		return writeBulk(registerWithDataToSendBuffer, 3);
 	}
 	
-	private synchronized boolean writeBulk(int registerAddress, byte[] data, int size) {
+	private synchronized boolean writeBulk(int registerAddress, byte[] data, int size) throws NACKException {
 		ByteBuffer registerWithDataToSendBuffer = ByteBuffer.allocateDirect(size + 1);
 		registerWithDataToSendBuffer.put((byte) registerAddress);
 		for (int i=0; i < size; ++i) {
 		    registerWithDataToSendBuffer.put(i+1, data[i]);
         }
-//		registerWithDataToSendBuffer.put(data, 1, size);
 		return writeBulk(registerWithDataToSendBuffer, size + 1);
 	}
 	
-	private ByteBuffer read(int registerAddress) {
+	private ByteBuffer read(int registerAddress) throws NACKException {
 		ByteBuffer bufferResults = ByteBuffer.allocateDirect(BYTE_SIZE.SINGLE.value);
 		read(registerAddress, BYTE_SIZE.SINGLE.value, bufferResults);
 		return bufferResults;
 	}
 	
 	// Reading two bytes of data back-to-back is a special, 2-byte case of read
-	private ByteBuffer read16(int registerAddress) {
+	private ByteBuffer read16(int registerAddress) throws NACKException {
 		ByteBuffer bufferResults = ByteBuffer.allocateDirect(BYTE_SIZE.DOUBLE.value);
 		read(registerAddress, BYTE_SIZE.DOUBLE.value, bufferResults);
 		return bufferResults;
@@ -359,7 +371,7 @@ public class VL53L0X extends I2CUpdatableAddress {
 	// seems to increase the likelihood of getting an inaccurate reading because of
 	// unwanted reflections from objects other than the intended target.
 	// Defaults to 0.25 MCPS as initialized by the ST API and this library.
-	private boolean setSignalRateLimit(float limit_Mcps) {
+	private boolean setSignalRateLimit(float limit_Mcps) throws NACKException {
 		if (limit_Mcps < 0 || limit_Mcps > 511.99) { return false; }
 		write16(VL53L0X_Constants.FINAL_RANGE_CONFIG_MIN_COUNT_RATE_RTN_LIMIT.value, (short) (limit_Mcps * (1<<7)));
 		return true;
@@ -412,7 +424,7 @@ public class VL53L0X extends I2CUpdatableAddress {
 	// Get the measurement timing budget in microseconds
 	// based on VL53L0X_get_measurement_timing_budget_micro_seconds()
 	// in us
-	int getMeasurementTimingBudget()
+	int getMeasurementTimingBudget() throws NACKException
 	{
 	  SequenceStepEnables enables = new SequenceStepEnables();
 	  SequenceStepTimeouts timeouts = new SequenceStepTimeouts();
@@ -466,7 +478,7 @@ public class VL53L0X extends I2CUpdatableAddress {
 	// factor of N decreases the range measurement standard deviation by a factor of
 	// sqrt(N). Defaults to about 33 milliseconds; the minimum is 20 ms.
 	// based on VL53L0X_set_measurement_timing_budget_micro_seconds()
-	private boolean setMeasurementTimingBudget(int budget_us)
+	private boolean setMeasurementTimingBudget(int budget_us) throws NACKException
 	{
 	  SequenceStepEnables enables = new SequenceStepEnables();
 	  SequenceStepTimeouts timeouts = new SequenceStepTimeouts();
@@ -553,8 +565,7 @@ public class VL53L0X extends I2CUpdatableAddress {
 	
 	// Get sequence step enables
 	// based on VL53L0X_GetSequenceStepEnables()
-	private void getSequenceStepEnables(SequenceStepEnables enables)
-	{
+	private void getSequenceStepEnables(SequenceStepEnables enables) throws NACKException {
 	  byte sequence_config = read(VL53L0X_Constants.SYSTEM_SEQUENCE_CONFIG.value).get();
 
 	  enables.tcc          = (byte) ((sequence_config >> 4) & 0x1);
@@ -577,9 +588,9 @@ public class VL53L0X extends I2CUpdatableAddress {
 	// based on get_sequence_step_timeout(),
 	// but gets all timeouts instead of just the requested one, and also stores
 	// intermediate values
-	private void getSequenceStepTimeouts(SequenceStepEnables enables, SequenceStepTimeouts timeouts)
+	private void getSequenceStepTimeouts(SequenceStepEnables enables, SequenceStepTimeouts timeouts) throws NACKException
 	{
-	  timeouts.pre_range_vcsel_period_pclks = getVcselPulsePeriod(vcselPeriodType.VcselPeriodPreRange);
+	  timeouts.pre_range_vcsel_period_pclks = getVcselPulsePeriod(VcselPeriodPreRange);
 
 	  timeouts.msrc_dss_tcc_mclks = (short) (read(VL53L0X_Constants.MSRC_CONFIG_TIMEOUT_MACROP.value).get() + 1);
 	  timeouts.msrc_dss_tcc_us =
@@ -643,9 +654,8 @@ public class VL53L0X extends I2CUpdatableAddress {
 	
 	// Get the VCSEL pulse period in PCLKs for the given period type.
 	// based on VL53L0X_get_vcsel_pulse_period()
-	byte getVcselPulsePeriod(vcselPeriodType type)
-	{
-		if (type == vcselPeriodType.VcselPeriodPreRange)
+	byte getVcselPulsePeriod(vcselPeriodType type) throws NACKException {
+		if (type == VcselPeriodPreRange)
 		{
 			return (byte) decodeVcselPeriod(read(VL53L0X_Constants.PRE_RANGE_CONFIG_VCSEL_PERIOD.value).get());
 		}
@@ -709,5 +719,181 @@ public class VL53L0X extends I2CUpdatableAddress {
 	  return true;
 	}
 
-	public class NACKException extends Exception{}
+	boolean setVcselPulsePeriod(vcselPeriodType type, byte period_pclks) throws NACKException {
+		byte vcsel_period_reg = encodeVcselPeriod(period_pclks);
+
+		SequenceStepEnables enables = new SequenceStepEnables();
+		SequenceStepTimeouts timeouts = new SequenceStepTimeouts();
+
+		getSequenceStepEnables(enables);
+		getSequenceStepTimeouts(enables, timeouts);
+
+		// "Apply specific settings for the requested clock period"
+		// "Re-calculate and apply timeouts, in macro periods"
+
+		// "When the VCSEL period for the pre or final range is changed,
+		// the corresponding timeout must be read from the device using
+		// the current VCSEL period, then the new VCSEL period can be
+		// applied. The timeout then must be written back to the device
+		// using the new VCSEL period.
+		//
+		// For the MSRC timeout, the same applies - this timeout being
+		// dependant on the pre-range vcsel period."
+
+
+		if (type == VcselPeriodPreRange)
+		{
+			// "Set phase check limits"
+			switch (period_pclks)
+			{
+				case 12:
+					write(PRE_RANGE_CONFIG_VALID_PHASE_HIGH.value, 0x18);
+					break;
+
+				case 14:
+					write(PRE_RANGE_CONFIG_VALID_PHASE_HIGH.value, 0x30);
+					break;
+
+				case 16:
+					write(PRE_RANGE_CONFIG_VALID_PHASE_HIGH.value, 0x40);
+					break;
+
+				case 18:
+					write(PRE_RANGE_CONFIG_VALID_PHASE_HIGH.value, 0x50);
+					break;
+
+				default:
+					// invalid period
+					return false;
+			}
+			write(PRE_RANGE_CONFIG_VALID_PHASE_LOW.value, 0x08);
+
+			// apply new VCSEL period
+			write(PRE_RANGE_CONFIG_VCSEL_PERIOD.value, vcsel_period_reg);
+
+			// update timeouts
+
+			// set_sequence_step_timeout() begin
+			// (SequenceStepId == VL53L0X_SEQUENCESTEP_PRE_RANGE)
+
+			int new_pre_range_timeout_mclks =
+					timeoutMicrosecondsToMclks(timeouts.pre_range_us, period_pclks);
+
+			write16(PRE_RANGE_CONFIG_TIMEOUT_MACROP_HI.value,
+					encodeTimeout((short)new_pre_range_timeout_mclks));
+
+			// set_sequence_step_timeout() end
+
+			// set_sequence_step_timeout() begin
+			// (SequenceStepId == VL53L0X_SEQUENCESTEP_MSRC)
+
+			int new_msrc_timeout_mclks =
+					timeoutMicrosecondsToMclks(timeouts.msrc_dss_tcc_us, period_pclks);
+
+			write(MSRC_CONFIG_TIMEOUT_MACROP.value,
+					(new_msrc_timeout_mclks > 256) ? 255 : (new_msrc_timeout_mclks - 1));
+
+			// set_sequence_step_timeout() end
+		}
+		else if (type == VcselPeriodFinalRange)
+		{
+			switch (period_pclks)
+			{
+				case 8:
+					write(FINAL_RANGE_CONFIG_VALID_PHASE_HIGH.value, 0x10);
+					write(FINAL_RANGE_CONFIG_VALID_PHASE_LOW.value,  0x08);
+					write(GLOBAL_CONFIG_VCSEL_WIDTH.value, 0x02);
+					write(ALGO_PHASECAL_CONFIG_TIMEOUT.value, 0x0C);
+					write(0xFF, 0x01);
+					write(ALGO_PHASECAL_LIM.value, 0x30);
+					write(0xFF, 0x00);
+					break;
+
+				case 10:
+					write(FINAL_RANGE_CONFIG_VALID_PHASE_HIGH.value, 0x28);
+					write(FINAL_RANGE_CONFIG_VALID_PHASE_LOW.value,  0x08);
+					write(GLOBAL_CONFIG_VCSEL_WIDTH.value, 0x03);
+					write(ALGO_PHASECAL_CONFIG_TIMEOUT.value, 0x09);
+					write(0xFF, 0x01);
+					write(ALGO_PHASECAL_LIM.value, 0x20);
+					write(0xFF, 0x00);
+					break;
+
+				case 12:
+					write(FINAL_RANGE_CONFIG_VALID_PHASE_HIGH.value, 0x38);
+					write(FINAL_RANGE_CONFIG_VALID_PHASE_LOW.value,  0x08);
+					write(GLOBAL_CONFIG_VCSEL_WIDTH.value, 0x03);
+					write(ALGO_PHASECAL_CONFIG_TIMEOUT.value, 0x08);
+					write(0xFF, 0x01);
+					write(ALGO_PHASECAL_LIM.value, 0x20);
+					write(0xFF, 0x00);
+					break;
+
+				case 14:
+					write(FINAL_RANGE_CONFIG_VALID_PHASE_HIGH.value, 0x48);
+					write(FINAL_RANGE_CONFIG_VALID_PHASE_LOW.value,  0x08);
+					write(GLOBAL_CONFIG_VCSEL_WIDTH.value, 0x03);
+					write(ALGO_PHASECAL_CONFIG_TIMEOUT.value, 0x07);
+					write(0xFF, 0x01);
+					write(ALGO_PHASECAL_LIM.value, 0x20);
+					write(0xFF, 0x00);
+					break;
+
+				default:
+					// invalid period
+					return false;
+			}
+
+			// apply new VCSEL period
+			write(FINAL_RANGE_CONFIG_VCSEL_PERIOD.value, vcsel_period_reg);
+
+			// update timeouts
+
+			// set_sequence_step_timeout() begin
+			// (SequenceStepId == VL53L0X_SEQUENCESTEP_FINAL_RANGE)
+
+			// "For the final range timeout, the pre-range timeout
+			//  must be added. To do this both final and pre-range
+			//  timeouts must be expressed in macro periods MClks
+			//  because they have different vcsel periods."
+
+			int new_final_range_timeout_mclks =
+					timeoutMicrosecondsToMclks(timeouts.final_range_us, period_pclks);
+
+			if (enables.pre_range == 0x01)
+			{
+				new_final_range_timeout_mclks += timeouts.pre_range_mclks;
+			}
+
+			write16(FINAL_RANGE_CONFIG_TIMEOUT_MACROP_HI.value,
+					encodeTimeout((short)new_final_range_timeout_mclks));
+
+			// set_sequence_step_timeout end
+		}
+		else
+		{
+			// invalid type
+			return false;
+		}
+
+		// "Finally, the timing budget must be re-applied"
+
+		setMeasurementTimingBudget(measurement_timing_budget_us);
+
+		// "Perform the phase calibration. This is needed after changing on vcsel period."
+		// VL53L0X_perform_phase_calibration() begin
+
+		ByteBuffer sequence_config = read(SYSTEM_SEQUENCE_CONFIG.value);
+		write(SYSTEM_SEQUENCE_CONFIG.value, 0x02);
+		performSingleRefCalibration((byte)0x0);
+		write(SYSTEM_SEQUENCE_CONFIG.value, sequence_config.get());
+
+		// VL53L0X_perform_phase_calibration() end
+
+		return true;
+	}
+
+    private byte encodeVcselPeriod(byte period_pclks) {
+        return (byte)(((period_pclks) >> 1) - 1);
+    }
 }

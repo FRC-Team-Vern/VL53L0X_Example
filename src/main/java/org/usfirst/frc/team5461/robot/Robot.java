@@ -3,7 +3,7 @@ package org.usfirst.frc.team5461.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import org.usfirst.frc.team5461.robot.sensors.VL53L0X.NACKException;
+import org.usfirst.frc.team5461.robot.sensors.I2CUpdatableAddress;
 import org.usfirst.frc.team5461.robot.sensors.VL53L0XSensors;
 
 import java.util.Vector;
@@ -35,12 +35,13 @@ public class Robot extends TimedRobot {
 
 		distance = new VL53L0XSensors();
 		boolean success = false;
-		try {
-			success = distance.init();
-			System.out.println("Distance sensors intialized!!!!!");
-		} catch (NACKException e) {
-			System.out.println("VL53L0X sensors not initialized!!!!!");
-		}
+
+        success = distance.init();
+        if (success) {
+            System.out.println("VL53L0X sensors initialized.");
+        } else {
+            System.out.println("VL53L0X sensors NOT initialized!!!!!");
+        }
 
 //		oi = new OI();
 //		SmartDashboard.putData("Auto mode", chooser);
@@ -116,20 +117,20 @@ public class Robot extends TimedRobot {
 		Vector<Integer> results;
 		try {
 			results = distance.readRangeSingleMillimeters();
-		} catch (NACKException nackEx) {
+			StringBuilder sb = new StringBuilder();
+			sb.append("Range1: ");
+			sb.append(Integer.toString(results.get(0)));
+			sb.append(", Range2: ");
+			sb.append(Integer.toString(results.get(1)));
+			sb.append("\n");
+			System.out.println(sb.toString());
+		} catch (I2CUpdatableAddress.NACKException nackEx) {
 			System.out.println("VL53L0X sensors NACK:");
 			return;
 		} catch (VL53L0XSensors.NotInitalizedException NotIinitEx) {
-            System.out.println("VL53L0X not initialized");
+			System.out.println("VL53L0X not initialized");
 			return;
 		}
-		StringBuilder sb = new StringBuilder();
-		sb.append("Range1: ");
-		sb.append(Integer.toString(results.get(0)));
-//		sb.append(",Range2,");
-//		sb.append(Integer.toString(results.get(1)));
-		sb.append("\n");
-		System.out.println(sb.toString());
 		try {
 			Thread.sleep(5);
 		} catch (InterruptedException e) {
