@@ -1,121 +1,153 @@
 package org.usfirst.frc.team5461.robot.sensors;
 
 import java.io.IOException;
-import java.util.Vector;
+import java.util.*;
+import java.util.concurrent.ArrayBlockingQueue;
+
 import edu.wpi.first.wpilibj.DigitalOutput;
 
 /**
  *
  */
 public class VL53L0XSensors {
+    private boolean initialized = false;
+    private List<VL53L0X> vl53l0xArray = new ArrayList();
+    // Set up synchronized results buffers
+    public List<ArrayBlockingQueue<Integer>> arrayBlockingQueueList = null;
+    // Respective DIO
+    private List<DigitalOutput> doArray = Arrays.asList(new DigitalOutput(0), new DigitalOutput(1));
+    private Timer distanceTimer = null;
 
-	// Sensors
-	VL53L0X vl53l0x1;
-	VL53L0X vl53l0x2;
-	
-	boolean initialized = false;
-	
-	// Respective DIO
-	DigitalOutput do1 = new DigitalOutput(0);
-	DigitalOutput do2 = new DigitalOutput(1);
 	
 	public VL53L0XSensors() {
-		do1.set(false);
-		do2.set(false);
+	    for (DigitalOutput dO : doArray){
+	        dO.set(false);
+        }
 	}
 	
 	public boolean init() {
-		do1.set(true);
-		// Allow some time for the xshut bit to settle
-		try {
-			Thread.sleep(10);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-
-		boolean result1 = false;
-		boolean result2 = false;
-
-		try {
-			vl53l0x1 = new VL53L0X(1);
-		} catch (I2CUpdatableAddress.NACKException nackEx) {
-            System.out.println("vl53l0x1 not initialized");
-			result1 = false;
-		}
-////		vl53l0x1.setAddress(0x27 + 1);
-        if (vl53l0x1 != null) {
+	    boolean result = false;
+	    for (int i=0; i<doArray.size(); ++i) {
+	        doArray.get(i).set(true);
+            // Allow some time for the xshut bit to settle
             try {
-                result1 = vl53l0x1.init(true);
-            } catch (I2CUpdatableAddress.NACKException nackEx) {
-                result1 = false;
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            VL53L0X vl53L0X = null;
+            try {
+                vl53L0X = new VL53L0X(i+1);
+            } catch (I2CUpdatableAddress.NACKException nack) {
+                System.out.println("VL53L0X Nack Exception on startup position: " + Integer.toString(i));
+            }
+            if (vl53L0X != null) {
+                try {
+                    result = vl53L0X.init(true);
+                } catch (I2CUpdatableAddress.NACKException e) {
+                    System.out.println("VL53L0X Nack Exception on init position: " + Integer.toString(i));
+                }
+            }
+            // Exit from VL53L0X initialization if any sensors do not initialize properly
+            if (!result) {
+                break;
+            } else {
+                vl53l0xArray.add(vl53L0X);
             }
         }
+        initialized = result;
 
-		do2.set(true);
-		// Allow some time for the xshut bit to settle
-		try {
-			Thread.sleep(10);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-
-        try {
-            vl53l0x2 = new VL53L0X(2);
-        } catch (I2CUpdatableAddress.NACKException nackEx) {
-            System.out.println("vl53l0x2 not initialized");
-            result2 = false;
-        }
-
-        if (vl53l0x2 != null) {
-            try {
-                result2 = vl53l0x2.init(true);
-            } catch (I2CUpdatableAddress.NACKException nackEx) {
-                result2 = false;
+        if (initialized) {
+            List<ArrayBlockingQueue<Integer>> blockingQueueList = new ArrayList<>();
+            for (int i=0; i<doArray.size(); ++i) {
+                blockingQueueList.add(new ArrayBlockingQueue<>(2));
             }
+            arrayBlockingQueueList = Collections.synchronizedList(blockingQueueList);
+            distanceTimer = new java.util.Timer();
+            System.out.println("---!!!Starting VL530L0X timer!!!---");
+            distanceTimer.schedule(new DistanceBackgroundTask(this), 0L, 20L);
         }
-
-        initialized = result1 && result2;
-		return initialized;
+        return result;
 	}
-	
+
+	private int getNumberOfSensors() {
+	    return doArray.size();
+    }
+
+	private class DistanceBackgroundTask extends TimerTask {
+
+	    private VL53L0XSensors vl53L0XSensors;
+
+	    public DistanceBackgroundTask(VL53L0XSensors vl53L0XSensors) {
+	        this.vl53L0XSensors = vl53L0XSensors;
+        }
+
+        @Override
+        public void run() {
+            Vector<Integer> results = new Vector();
+            try {
+                results = vl53L0XSensors.readRangeSingleMillimeters();
+            } catch (I2CUpdatableAddress.NACKException nackEx) {
+                System.out.println("VL53L0X Sensors NACK:");
+            } catch (VL53L0XSensors.NotInitalizedException NotIinitEx) {
+                System.out.println("VL53L0X Not Initialized");
+            }
+
+            if (results.isEmpty()) {
+                for (int i=0; i<vl53L0XSensors.getNumberOfSensors(); ++i) {
+                    results.add(8190);
+                }
+            }
+
+            int resultsNum = 0;
+            for (Integer result : results) {
+                ArrayBlockingQueue curQueue = arrayBlockingQueueList.get(resultsNum++);
+                // If the queue is full take the oldest one from the head.
+                if (curQueue.remainingCapacity() == 0) {
+                    curQueue.poll();
+                }
+                try {
+                    curQueue.put(result);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+
 	public Vector<Integer> readRangeSingleMillimeters() throws I2CUpdatableAddress.NACKException, NotInitalizedException{
 		if (!initialized){
 			throw new NotInitalizedException();
 		}
 		
 		Vector<Integer> results = new Vector<>();
-		int result1 = vl53l0x1.readRangeSingleMillimeters();
-		results.add(result1);
-		// Give a little wait between reads
-//		try {
-//			Thread.sleep(1);
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		}
-		int result2 = vl53l0x2.readRangeSingleMillimeters();
-		results.add(result2);
+		for (VL53L0X vl53L0x : vl53l0xArray) {
+            int result = vl53L0x.readRangeSingleMillimeters();
+            results.add(result);
+        }
 		return results;
 	}
 	
-	public int readRangeSingleMillimeters(int address) throws I2CUpdatableAddress.NACKException, NotInitalizedException{
-		if (!initialized){
-			throw new NotInitalizedException();
-		}
-		int result = -1;
-		if (address == 1){
-			result = vl53l0x1.readRangeSingleMillimeters();
-			
-		} else if (address == 2){
-			result = vl53l0x2.readRangeSingleMillimeters();
-		}
-		// Give a little wait between reads
-		try {
-			Thread.sleep(10);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		return result;
-	}
+//	public int readRangeSingleMillimeters(int address) throws I2CUpdatableAddress.NACKException, NotInitalizedException{
+//		if (!initialized){
+//			throw new NotInitalizedException();
+//		}
+//		int result = -1;
+//		if (address == 1){
+//			result = vl53l0x1.readRangeSingleMillimeters();
+//
+//		} else if (address == 2){
+//			result = vl53l0x2.readRangeSingleMillimeters();
+//		}
+//		// Give a little wait between reads
+//		try {
+//			Thread.sleep(10);
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
+//		return result;
+//	}
 	
 	
 

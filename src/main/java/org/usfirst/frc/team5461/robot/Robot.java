@@ -7,6 +7,7 @@ import org.usfirst.frc.team5461.robot.sensors.I2CUpdatableAddress;
 import org.usfirst.frc.team5461.robot.sensors.VL53L0XSensors;
 
 import java.util.Vector;
+import java.util.concurrent.ArrayBlockingQueue;
 
 
 /**
@@ -114,29 +115,20 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		Vector<Integer> results;
-		try {
-			results = distance.readRangeSingleMillimeters();
-			StringBuilder sb = new StringBuilder();
-			sb.append("Range1: ");
-			sb.append(Integer.toString(results.get(0)));
-			sb.append(", Range2: ");
-			sb.append(Integer.toString(results.get(1)));
-			sb.append("\n");
-			System.out.println(sb.toString());
-		} catch (I2CUpdatableAddress.NACKException nackEx) {
-			System.out.println("VL53L0X sensors NACK:");
-			return;
-		} catch (VL53L0XSensors.NotInitalizedException NotIinitEx) {
-			System.out.println("VL53L0X not initialized");
-			return;
-		}
-		try {
-			Thread.sleep(5);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		results.clear();
+        StringBuilder sb = new StringBuilder();
+        int i = 0;
+		for (ArrayBlockingQueue queue : distance.arrayBlockingQueueList) {
+		    Object result = queue.poll();
+		    if (result != null) {
+                sb.append("Range");
+                sb.append(Integer.toString(i++));
+                sb.append(": ");
+                sb.append(Integer.toString((int) result));
+                sb.append(" ");
+            }
+        }
+        sb.append("\n");
+        System.out.println(sb.toString());
 	}
 
 	/**

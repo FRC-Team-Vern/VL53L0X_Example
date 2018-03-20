@@ -260,7 +260,7 @@ public class VL53L0X extends I2CUpdatableAddress {
 		// VL53L0X_PerformRefCalibration() end
 
         // Set this last section for long range
-        setLongRange();
+//        setLongRange();
 
 		return true;
 	}
