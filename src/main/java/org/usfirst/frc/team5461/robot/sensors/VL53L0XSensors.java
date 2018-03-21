@@ -78,13 +78,13 @@ public class VL53L0XSensors {
 
 	    private VL53L0XSensors vl53L0XSensors;
 
-	    public DistanceBackgroundTask(VL53L0XSensors vl53L0XSensors) {
+	    DistanceBackgroundTask(VL53L0XSensors vl53L0XSensors) {
 	        this.vl53L0XSensors = vl53L0XSensors;
         }
 
         @Override
         public void run() {
-            Vector<Integer> results = new Vector();
+            Vector<Integer> results = new Vector<>();
             try {
                 results = vl53L0XSensors.readRangeSingleMillimeters();
             } catch (I2CUpdatableAddress.NACKException nackEx) {
@@ -116,7 +116,7 @@ public class VL53L0XSensors {
     }
 
 
-	public Vector<Integer> readRangeSingleMillimeters() throws I2CUpdatableAddress.NACKException, NotInitalizedException{
+	private Vector<Integer> readRangeSingleMillimeters() throws I2CUpdatableAddress.NACKException, NotInitalizedException{
 		if (!initialized){
 			throw new NotInitalizedException();
 		}
