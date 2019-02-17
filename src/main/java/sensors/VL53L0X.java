@@ -1,3 +1,9 @@
+/*----------------------------------------------------------------------------*/
+/* Copyright (c) 2008-2019 FIRST. All Rights Reserved.                        */
+/* Open Source Software - may be modified and shared by FRC teams. The code   */
+/* must be accompanied by the FIRST BSD license file in the root directory of */
+/* the project.                                                               */
+/*----------------------------------------------------------------------------*/
 package sensors;
 
 import edu.wpi.first.hal.HALUtil;
@@ -9,10 +15,6 @@ import static sensors.VL53L0X.vcselPeriodType.VcselPeriodPreRange;
 import static sensors.VL53L0X_Constants.*;
 
 public class VL53L0X extends I2CUpdatableAddress {
-
-    private Port m_port = Port.kOnboard;
-    //Store address given when the class is initialized.
-
     private static final int DEFAULT_ADDRESS = 0x29;
     // The value of the address above the default address.
     private int deviceAddress;
@@ -56,12 +58,12 @@ public class VL53L0X extends I2CUpdatableAddress {
         }
     }
 
-    public VL53L0X(int deviceAddress) throws NACKException {
-        this(deviceAddress, false);
+    public VL53L0X(Port port, int deviceAddress) throws NACKException {
+        this(port, deviceAddress, false);
     }
 
-    public VL53L0X(int deviceAddress, boolean longRange) throws NACKException {
-        super(Port.kOnboard, DEFAULT_ADDRESS, DEFAULT_ADDRESS + deviceAddress);
+    public VL53L0X(Port port, int deviceAddress, boolean longRange) throws NACKException {
+        super(port, DEFAULT_ADDRESS, DEFAULT_ADDRESS + deviceAddress);
         // sensor uses 1V8 mode for I/O by default; switch to 2V8 mode if necessary
         write(VL53L0X_Constants.VHV_CONFIG_PAD_SCL_SDA__EXTSUP_HV.value,
                 read(VL53L0X_Constants.VHV_CONFIG_PAD_SCL_SDA__EXTSUP_HV.value).get() | 0x01); // set bit 0

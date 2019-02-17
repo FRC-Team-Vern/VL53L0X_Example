@@ -13,8 +13,8 @@ repositories {
 
 spotless {
     java {
+        licenseHeaderFile("FRCLicense.txt")
         removeUnusedImports()
-//        googleJavaFormat()
         trimTrailingWhitespace()
         indentWithSpaces(4)
         endWithNewline()
