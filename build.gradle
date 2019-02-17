@@ -2,11 +2,22 @@ plugins {
     id "java"
     id "eclipse"
     id "idea"
+    id "com.diffplug.gradle.spotless" version "3.18.0"
 }
 
 repositories {
     maven {
         url "http://first.wpi.edu/FRC/roborio/maven/release"
+    }
+}
+
+spotless {
+    java {
+        removeUnusedImports()
+//        googleJavaFormat()
+        trimTrailingWhitespace()
+        indentWithSpaces(4)
+        endWithNewline()
     }
 }
 

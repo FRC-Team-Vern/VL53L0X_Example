@@ -4,7 +4,8 @@ import edu.wpi.first.hal.HALUtil;
 
 import java.nio.ByteBuffer;
 
-import static sensors.VL53L0X.vcselPeriodType.*;
+import static sensors.VL53L0X.vcselPeriodType.VcselPeriodFinalRange;
+import static sensors.VL53L0X.vcselPeriodType.VcselPeriodPreRange;
 import static sensors.VL53L0X_Constants.*;
 
 public class VL53L0X extends I2CUpdatableAddress {
@@ -47,8 +48,6 @@ public class VL53L0X extends I2CUpdatableAddress {
         int msrc_dss_tcc_us, pre_range_us, final_range_us;
     }
 
-    ;
-
     private class BooleanCarrier {
         boolean value = false;
 
@@ -58,16 +57,14 @@ public class VL53L0X extends I2CUpdatableAddress {
     }
 
     public VL53L0X(int deviceAddress) throws NACKException {
-        super(Port.kOnboard, DEFAULT_ADDRESS, DEFAULT_ADDRESS + deviceAddress);
-        this.did_timeout = false;
+        this(deviceAddress, false);
     }
 
-    public final boolean init(boolean io_2v8) throws NACKException {
+    public VL53L0X(int deviceAddress, boolean longRange) throws NACKException {
+        super(Port.kOnboard, DEFAULT_ADDRESS, DEFAULT_ADDRESS + deviceAddress);
         // sensor uses 1V8 mode for I/O by default; switch to 2V8 mode if necessary
-        if (io_2v8) {
-            write(VL53L0X_Constants.VHV_CONFIG_PAD_SCL_SDA__EXTSUP_HV.value,
-                    read(VL53L0X_Constants.VHV_CONFIG_PAD_SCL_SDA__EXTSUP_HV.value).get() | 0x01); // set bit 0
-        }
+        write(VL53L0X_Constants.VHV_CONFIG_PAD_SCL_SDA__EXTSUP_HV.value,
+                read(VL53L0X_Constants.VHV_CONFIG_PAD_SCL_SDA__EXTSUP_HV.value).get() | 0x01); // set bit 0
 
         // "Set I2C standard mode"
         write(0x88, 0x00);
@@ -91,7 +88,7 @@ public class VL53L0X extends I2CUpdatableAddress {
         byte[] spad_count = new byte[1];
         BooleanCarrier spad_type_is_aperture = new BooleanCarrier(false);
         if (!getSpadInfo(spad_count, spad_type_is_aperture)) {
-            return false;
+            throw new NACKException();
         }
 
         // The SPAD map (RefGoodSpadMap) is read by VL53L0X_get_info_from_device() in
@@ -246,7 +243,7 @@ public class VL53L0X extends I2CUpdatableAddress {
 
         write(VL53L0X_Constants.SYSTEM_SEQUENCE_CONFIG.value, 0x01);
         if (!performSingleRefCalibration((byte) 0x40)) {
-            return false;
+            throw new NACKException();
         }
 
         // -- VL53L0X_perform_vhv_calibration() end
@@ -255,7 +252,7 @@ public class VL53L0X extends I2CUpdatableAddress {
 
         write(VL53L0X_Constants.SYSTEM_SEQUENCE_CONFIG.value, 0x02);
         if (!performSingleRefCalibration((byte) 0x00)) {
-            return false;
+            throw new NACKException();
         }
 
         // -- VL53L0X_perform_phase_calibration() end
@@ -263,15 +260,12 @@ public class VL53L0X extends I2CUpdatableAddress {
         // "restore the previous Sequence Config"
         write(VL53L0X_Constants.SYSTEM_SEQUENCE_CONFIG.value, 0xE8);
 
-        // VL53L0X_PerformRefCalibration() end
-
-        // Set this last section for long range
-//        setLongRange();
-
-        return true;
+        if(longRange) {
+            setLongRange();
+        }
     }
 
-    void setLongRange() throws NACKException {
+    protected void setLongRange() throws NACKException {
         setSignalRateLimit(0.1f);
         // increase laser pulse periods (defaults are 14 and 10 PCLKs)
         setVcselPulsePeriod(VcselPeriodPreRange, (byte) 18);
@@ -318,12 +312,9 @@ public class VL53L0X extends I2CUpdatableAddress {
 
         // assumptions: Linearity Corrective Gain is 1000 (default);
         // fractional ranging is not enabled
-//	  ByteBuffer byte_buffer_range = read16(VL53L0X_Constants.RESULT_RANGE_STATUS.value + 10);
-
         short range = read16(VL53L0X_Constants.RESULT_RANGE_STATUS.value + 10).getShort();
 
         write(VL53L0X_Constants.SYSTEM_INTERRUPT_CLEAR.value, 0x01);
-//	  byte_buffer_range.clear();
         return range;
     }
 
@@ -371,12 +362,11 @@ public class VL53L0X extends I2CUpdatableAddress {
     // seems to increase the likelihood of getting an inaccurate reading because of
     // unwanted reflections from objects other than the intended target.
     // Defaults to 0.25 MCPS as initialized by the ST API and this library.
-    private boolean setSignalRateLimit(float limit_Mcps) throws NACKException {
+    private void setSignalRateLimit(float limit_Mcps) throws NACKException {
         if (limit_Mcps < 0 || limit_Mcps > 511.99) {
-            return false;
+            throw new IllegalArgumentException("Incore Mcps limit");
         }
         write16(VL53L0X_Constants.FINAL_RANGE_CONFIG_MIN_COUNT_RATE_RTN_LIMIT.value, (short) (limit_Mcps * (1 << 7)));
-        return true;
     }
 
     // Get reference SPAD (single photon avalanche diode) count and type
@@ -408,7 +398,7 @@ public class VL53L0X extends I2CUpdatableAddress {
         tmp_byte = read(0x92).get();
 
         count[0] = (byte) (tmp_byte & 0x7f);
-//	  count.put(0, count_byte);
+
         boolean type_is_aperture_boolean = (((tmp_byte) & 0x01) == 0x01);
         type_is_aperture.value = type_is_aperture_boolean;
 
@@ -427,7 +417,7 @@ public class VL53L0X extends I2CUpdatableAddress {
     // Get the measurement timing budget in microseconds
     // based on VL53L0X_get_measurement_timing_budget_micro_seconds()
     // in us
-    int getMeasurementTimingBudget() throws NACKException {
+    private int getMeasurementTimingBudget() throws NACKException {
         SequenceStepEnables enables = new SequenceStepEnables();
         SequenceStepTimeouts timeouts = new SequenceStepTimeouts();
 
@@ -639,7 +629,7 @@ public class VL53L0X extends I2CUpdatableAddress {
 
     // Get the VCSEL pulse period in PCLKs for the given period type.
     // based on VL53L0X_get_vcsel_pulse_period()
-    byte getVcselPulsePeriod(vcselPeriodType type) throws NACKException {
+    private byte getVcselPulsePeriod(vcselPeriodType type) throws NACKException {
         if (type == VcselPeriodPreRange) {
             return (byte) decodeVcselPeriod(read(VL53L0X_Constants.PRE_RANGE_CONFIG_VCSEL_PERIOD.value).get());
         } else if (type == vcselPeriodType.VcselPeriodFinalRange) {
@@ -653,7 +643,7 @@ public class VL53L0X extends I2CUpdatableAddress {
     // based on VL53L0X_encode_timeout()
     // Note: the original function took a uint16_t, but the argument passed to it
     // is always a uint16_t.
-    short encodeTimeout(short timeout_mclks) {
+    private short encodeTimeout(short timeout_mclks) {
         // format: "(LSByte * 2^MSByte) + 1"
         int ls_byte = 0;
         short ms_byte = 0;
@@ -675,14 +665,14 @@ public class VL53L0X extends I2CUpdatableAddress {
     // based on VL53L0X_decode_timeout()
     // Note: the original function returned a uint32_t, but the return value is
     // always stored in a uint16_t.
-    short decodeTimeout(short reg_val) {
+    private short decodeTimeout(short reg_val) {
         // format: "(LSByte * 2^MSByte) + 1"
         return (short) ((short) ((reg_val & 0x00FF) <<
                 (short) ((reg_val & 0xFF00) >> 8)) + 1);
     }
 
     // based on VL53L0X_perform_single_ref_calibration()
-    boolean performSingleRefCalibration(byte vhv_init_byte) throws NACKException {
+    private boolean performSingleRefCalibration(byte vhv_init_byte) throws NACKException {
         write(VL53L0X_Constants.SYSRANGE_START.value, 0x01 | vhv_init_byte); // VL53L0X_REG_SYSRANGE_MODE_START_STOP
 
         startTimeout();
