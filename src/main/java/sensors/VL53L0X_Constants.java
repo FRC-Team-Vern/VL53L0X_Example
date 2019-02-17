@@ -1,4 +1,4 @@
-package org.usfirst.frc.team5461.robot.sensors;
+package sensors;
 
 public enum VL53L0X_Constants {
 	SYSRANGE_START(0x00),

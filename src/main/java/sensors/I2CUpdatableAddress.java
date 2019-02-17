@@ -5,12 +5,12 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package org.usfirst.frc.team5461.robot.sensors;
+package sensors;
 
-import edu.wpi.first.wpilibj.hal.FRCNetComm.tResourceType;
-import edu.wpi.first.wpilibj.hal.HAL;
-import edu.wpi.first.wpilibj.hal.I2CJNI;
-import edu.wpi.first.wpilibj.util.BoundaryException;
+import edu.wpi.first.hal.FRCNetComm.tResourceType;
+import edu.wpi.first.hal.HAL;
+import edu.wpi.first.hal.I2CJNI;
+import edu.wpi.first.hal.util.BoundaryException;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -29,7 +29,6 @@ public class I2CUpdatableAddress {
     public enum Port {
         kOnboard(0), kMXP(1);
 
-        @SuppressWarnings("MemberName")
         public final int value;
 
         Port(int value) {
@@ -43,7 +42,7 @@ public class I2CUpdatableAddress {
 
     /**
      * Constructor.
-     *
+     *z
      * @param port          The I2C port the device is connected to.
      * @param deviceAddress The address of the device on the I2C bus.
      */

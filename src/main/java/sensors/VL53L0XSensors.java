@@ -1,34 +1,35 @@
-package org.usfirst.frc.team5461.robot.sensors;
+package sensors;
+
+import edu.wpi.first.wpilibj.DigitalOutput;
 
 import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.ArrayBlockingQueue;
-
-import edu.wpi.first.wpilibj.DigitalOutput;
 
 /**
  *
  */
 public class VL53L0XSensors {
     private boolean initialized = false;
-    private List<VL53L0X> vl53l0xArray = new ArrayList();
+    private List<VL53L0X> vl53l0xArray = new ArrayList<>();
     // Set up synchronized results buffers
-    public List<ArrayBlockingQueue<Integer>> arrayBlockingQueueList = null;
+    private List<ArrayBlockingQueue<Integer>> arrayBlockingQueueList = null;
     // Respective DIO
-    private List<DigitalOutput> doArray = Arrays.asList(new DigitalOutput(0), new DigitalOutput(1));
+    private final List<DigitalOutput> doArray;
     private Timer distanceTimer = null;
 
-	
-	public VL53L0XSensors() {
-	    for (DigitalOutput dO : doArray){
-	        dO.set(false);
+
+    public VL53L0XSensors(List<DigitalOutput> outputArr) {
+        doArray = outputArr;
+        for (DigitalOutput dO : doArray) {
+            dO.set(false);
         }
-	}
-	
-	public boolean init() {
-	    boolean result = false;
-	    for (int i=0; i<doArray.size(); ++i) {
-	        doArray.get(i).set(true);
+    }
+
+    public boolean init() {
+        boolean result = false;
+        for (int i = 0; i < doArray.size(); ++i) {
+            doArray.get(i).set(true);
             // Allow some time for the xshut bit to settle
             try {
                 Thread.sleep(10);
@@ -37,7 +38,7 @@ public class VL53L0XSensors {
             }
             VL53L0X vl53L0X = null;
             try {
-                vl53L0X = new VL53L0X(i+1);
+                vl53L0X = new VL53L0X(i + 1);
             } catch (I2CUpdatableAddress.NACKException nack) {
                 System.out.println("VL53L0X Nack Exception on startup position: " + Integer.toString(i));
             }
@@ -59,7 +60,7 @@ public class VL53L0XSensors {
 
         if (initialized) {
             List<ArrayBlockingQueue<Integer>> blockingQueueList = new ArrayList<>();
-            for (int i=0; i<doArray.size(); ++i) {
+            for (int i = 0; i < doArray.size(); ++i) {
                 blockingQueueList.add(new ArrayBlockingQueue<>(2));
             }
             arrayBlockingQueueList = Collections.synchronizedList(blockingQueueList);
@@ -68,18 +69,18 @@ public class VL53L0XSensors {
             distanceTimer.schedule(new DistanceBackgroundTask(this), 0L, 20L);
         }
         return result;
-	}
-
-	private int getNumberOfSensors() {
-	    return doArray.size();
     }
 
-	private class DistanceBackgroundTask extends TimerTask {
+    private int getNumberOfSensors() {
+        return doArray.size();
+    }
 
-	    private VL53L0XSensors vl53L0XSensors;
+    private class DistanceBackgroundTask extends TimerTask {
 
-	    DistanceBackgroundTask(VL53L0XSensors vl53L0XSensors) {
-	        this.vl53L0XSensors = vl53L0XSensors;
+        private VL53L0XSensors vl53L0XSensors;
+
+        DistanceBackgroundTask(VL53L0XSensors vl53L0XSensors) {
+            this.vl53L0XSensors = vl53L0XSensors;
         }
 
         @Override
@@ -94,14 +95,14 @@ public class VL53L0XSensors {
             }
 
             if (results.isEmpty()) {
-                for (int i=0; i<vl53L0XSensors.getNumberOfSensors(); ++i) {
+                for (int i = 0; i < vl53L0XSensors.getNumberOfSensors(); ++i) {
                     results.add(8190);
                 }
             }
 
             int resultsNum = 0;
             for (Integer result : results) {
-                ArrayBlockingQueue curQueue = arrayBlockingQueueList.get(resultsNum++);
+                ArrayBlockingQueue<Integer> curQueue = arrayBlockingQueueList.get(resultsNum++);
                 // If the queue is full take the oldest one from the head.
                 if (curQueue.remainingCapacity() == 0) {
                     curQueue.poll();
@@ -116,47 +117,41 @@ public class VL53L0XSensors {
     }
 
 
-	private Vector<Integer> readRangeSingleMillimeters() throws I2CUpdatableAddress.NACKException, NotInitalizedException{
-		if (!initialized){
-			throw new NotInitalizedException();
-		}
-		
-		Vector<Integer> results = new Vector<>();
-		for (VL53L0X vl53L0x : vl53l0xArray) {
+    private Vector<Integer> readRangeSingleMillimeters() throws I2CUpdatableAddress.NACKException, NotInitalizedException {
+        if (!initialized) {
+            throw new NotInitalizedException();
+        }
+
+        Vector<Integer> results = new Vector<>();
+        for (VL53L0X vl53L0x : vl53l0xArray) {
             int result = vl53L0x.readRangeSingleMillimeters();
             results.add(result);
         }
-		return results;
-	}
-	
-//	public int readRangeSingleMillimeters(int address) throws I2CUpdatableAddress.NACKException, NotInitalizedException{
-//		if (!initialized){
-//			throw new NotInitalizedException();
-//		}
-//		int result = -1;
-//		if (address == 1){
-//			result = vl53l0x1.readRangeSingleMillimeters();
-//
-//		} else if (address == 2){
-//			result = vl53l0x2.readRangeSingleMillimeters();
-//		}
-//		// Give a little wait between reads
-//		try {
-//			Thread.sleep(10);
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		}
-//		return result;
-//	}
-	
-	
-
-    public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
+        return results;
     }
 
-    public class NotInitalizedException extends IOException {}
-    
+	public int readRangeSingleMillimeters(int address) throws I2CUpdatableAddress.NACKException, NotInitalizedException{
+		if (!initialized){
+			throw new NotInitalizedException();
+		}
+		int result = -1;
+		if (address == 1){
+			result = vl53l0x1.readRangeSingleMillimeters();
+
+		} else if (address == 2){
+			result = vl53l0x2.readRangeSingleMillimeters();
+		}
+		// Give a little wait between reads
+		try {
+			Thread.sleep(10);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+    public class NotInitalizedException extends IOException {
+    }
+
 }
 
