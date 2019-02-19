@@ -885,7 +885,7 @@ public final class VL53L0X extends I2CUpdatableAddress {
      * @param port the port (navx or onboard) of the i2c bus
      * @param dios an array of all dio ports controlling the xshut pin
      * @param longRange an array of boolean indicating whether the sensor is long range
-     * @return an array of initalized Vl53L0X sensors
+     * @return an array of initialized Vl53L0X sensors
      * @throws I2CException if I2C initialization fails
      */
     public static VL53L0X[] initSensors(Port port, DigitalOutput[] dios, boolean[] longRange) throws I2CException {
@@ -900,6 +900,7 @@ public final class VL53L0X extends I2CUpdatableAddress {
         VL53L0X[] output = new VL53L0X[dios.length];
 
         for(int i = 0; i < dios.length; i++) {
+            dios[i].set(true);
             VL53L0X next = new VL53L0X(port, i);
             output[i] = next;
         }
