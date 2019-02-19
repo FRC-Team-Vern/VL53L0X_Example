@@ -7,6 +7,7 @@
 package sensors;
 
 import edu.wpi.first.hal.HALUtil;
+import edu.wpi.first.wpilibj.DigitalOutput;
 
 import java.nio.ByteBuffer;
 
@@ -14,15 +15,13 @@ import static sensors.VL53L0X.vcselPeriodType.VcselPeriodFinalRange;
 import static sensors.VL53L0X.vcselPeriodType.VcselPeriodPreRange;
 import static sensors.VL53L0X_Constants.*;
 
-public class VL53L0X extends I2CUpdatableAddress {
+public final class VL53L0X extends I2CUpdatableAddress {
     private static final int DEFAULT_ADDRESS = 0x29;
     // The value of the address above the default address.
-    private int deviceAddress;
     private byte stop_variable;
     private int measurement_timing_budget_us;
-    private int timeout_start_ms;
+    private long timeout_start_ms;
     private int io_timeout = 0;
-    private boolean did_timeout;
 
     private enum BYTE_SIZE {
         SINGLE(1),
@@ -58,11 +57,11 @@ public class VL53L0X extends I2CUpdatableAddress {
         }
     }
 
-    public VL53L0X(Port port, int deviceAddress) throws NACKException {
+    private VL53L0X(Port port, int deviceAddress) throws I2CException {
         this(port, deviceAddress, false);
     }
 
-    public VL53L0X(Port port, int deviceAddress, boolean longRange) throws NACKException {
+    private VL53L0X(Port port, int deviceAddress, boolean longRange) throws I2CException {
         super(port, DEFAULT_ADDRESS, DEFAULT_ADDRESS + deviceAddress);
         // sensor uses 1V8 mode for I/O by default; switch to 2V8 mode if necessary
         write(VL53L0X_Constants.VHV_CONFIG_PAD_SCL_SDA__EXTSUP_HV.value,
@@ -90,7 +89,7 @@ public class VL53L0X extends I2CUpdatableAddress {
         byte[] spad_count = new byte[1];
         BooleanCarrier spad_type_is_aperture = new BooleanCarrier(false);
         if (!getSpadInfo(spad_count, spad_type_is_aperture)) {
-            throw new NACKException();
+            throw new I2CException();
         }
 
         // The SPAD map (RefGoodSpadMap) is read by VL53L0X_get_info_from_device() in
@@ -245,7 +244,7 @@ public class VL53L0X extends I2CUpdatableAddress {
 
         write(VL53L0X_Constants.SYSTEM_SEQUENCE_CONFIG.value, 0x01);
         if (!performSingleRefCalibration((byte) 0x40)) {
-            throw new NACKException();
+            throw new I2CException();
         }
 
         // -- VL53L0X_perform_vhv_calibration() end
@@ -254,7 +253,7 @@ public class VL53L0X extends I2CUpdatableAddress {
 
         write(VL53L0X_Constants.SYSTEM_SEQUENCE_CONFIG.value, 0x02);
         if (!performSingleRefCalibration((byte) 0x00)) {
-            throw new NACKException();
+            throw new I2CException();
         }
 
         // -- VL53L0X_perform_phase_calibration() end
@@ -267,17 +266,19 @@ public class VL53L0X extends I2CUpdatableAddress {
         }
     }
 
-    protected void setLongRange() throws NACKException {
+    protected void setLongRange() throws I2CException {
         setSignalRateLimit(0.1f);
         // increase laser pulse periods (defaults are 14 and 10 PCLKs)
         setVcselPulsePeriod(VcselPeriodPreRange, (byte) 18);
         setVcselPulsePeriod(VcselPeriodFinalRange, (byte) 14);
     }
 
-    // Performs a single-shot range measurement and returns the reading in
-    // millimeters
-    // based on VL53L0X_PerformSingleRangingMeasurement()
-    public int readRangeSingleMillimeters() throws NACKException {
+    /**
+     *  Returns a single-shot range reading in millimeters
+     * @return the reading in millimeters
+     * @throws I2CException if I2C reading fails
+     */
+    public int readRangeSingleMillimeters() throws I2CException {
         write(0x80, 0x01);
         write(0xFF, 0x01);
         write(0x00, 0x00);
@@ -292,7 +293,6 @@ public class VL53L0X extends I2CUpdatableAddress {
         startTimeout();
         while ((read(VL53L0X_Constants.SYSRANGE_START.value).get() & 0x01) == 0x01) {
             if (checkTimeoutExpired()) {
-                did_timeout = true;
                 return 65535;
             }
         }
@@ -303,11 +303,12 @@ public class VL53L0X extends I2CUpdatableAddress {
     // Returns a range reading in millimeters when continuous mode is active
     // (readRangeSingleMillimeters() also calls this function after starting a
     // single-shot range measurement)
-    public int readRangeContinuousMillimeters() throws NACKException {
+    // Unsure of use - do not call externally
+    @Deprecated
+    public int readRangeContinuousMillimeters() throws I2CException {
         startTimeout();
         while ((read(VL53L0X_Constants.RESULT_INTERRUPT_STATUS.value).get() & 0x07) == 0) {
             if (checkTimeoutExpired()) {
-                did_timeout = true;
                 return 65535;
             }
         }
@@ -320,21 +321,21 @@ public class VL53L0X extends I2CUpdatableAddress {
         return range;
     }
 
-    private int getAddressFromDevice() throws NACKException {
+    private int getAddressFromDevice() throws I2CException {
         ByteBuffer deviceAddress = ByteBuffer.allocateDirect(BYTE_SIZE.SINGLE.value);
         read(VL53L0X_Constants.I2C_SLAVE_DEVICE_ADDRESS.value, BYTE_SIZE.SINGLE.value, deviceAddress);
         return deviceAddress.get();
     }
 
     // Writing two bytes of data back-to-back is a special case of writeBulk
-    private synchronized boolean write16(int registerAddress, short data) throws NACKException {
+    private synchronized boolean write16(int registerAddress, short data) throws I2CException {
         ByteBuffer registerWithDataToSendBuffer = ByteBuffer.allocateDirect(3);
         registerWithDataToSendBuffer.put((byte) registerAddress);
         registerWithDataToSendBuffer.putShort(1, data);
         return writeBulk(registerWithDataToSendBuffer, 3);
     }
 
-    private synchronized boolean writeBulk(int registerAddress, byte[] data, int size) throws NACKException {
+    private synchronized boolean writeBulk(int registerAddress, byte[] data, int size) throws I2CException {
         ByteBuffer registerWithDataToSendBuffer = ByteBuffer.allocateDirect(size + 1);
         registerWithDataToSendBuffer.put((byte) registerAddress);
         for (int i = 0; i < size; ++i) {
@@ -343,14 +344,14 @@ public class VL53L0X extends I2CUpdatableAddress {
         return writeBulk(registerWithDataToSendBuffer, size + 1);
     }
 
-    private ByteBuffer read(int registerAddress) throws NACKException {
+    private ByteBuffer read(int registerAddress) throws I2CException {
         ByteBuffer bufferResults = ByteBuffer.allocateDirect(BYTE_SIZE.SINGLE.value);
         read(registerAddress, BYTE_SIZE.SINGLE.value, bufferResults);
         return bufferResults;
     }
 
     // Reading two bytes of data back-to-back is a special, 2-byte case of read
-    private ByteBuffer read16(int registerAddress) throws NACKException {
+    private ByteBuffer read16(int registerAddress) throws I2CException {
         ByteBuffer bufferResults = ByteBuffer.allocateDirect(BYTE_SIZE.DOUBLE.value);
         read(registerAddress, BYTE_SIZE.DOUBLE.value, bufferResults);
         return bufferResults;
@@ -364,7 +365,7 @@ public class VL53L0X extends I2CUpdatableAddress {
     // seems to increase the likelihood of getting an inaccurate reading because of
     // unwanted reflections from objects other than the intended target.
     // Defaults to 0.25 MCPS as initialized by the ST API and this library.
-    private void setSignalRateLimit(float limit_Mcps) throws NACKException {
+    private void setSignalRateLimit(float limit_Mcps) throws I2CException {
         if (limit_Mcps < 0 || limit_Mcps > 511.99) {
             throw new IllegalArgumentException("Incore Mcps limit");
         }
@@ -374,7 +375,7 @@ public class VL53L0X extends I2CUpdatableAddress {
     // Get reference SPAD (single photon avalanche diode) count and type
     // based on VL53L0X_get_info_from_device(),
     // but only gets reference SPAD count and type
-    private boolean getSpadInfo(byte[] count, BooleanCarrier type_is_aperture) throws NACKException {
+    private boolean getSpadInfo(byte[] count, BooleanCarrier type_is_aperture) throws I2CException {
         byte tmp_byte = 0x00; // ByteBuffer.allocateDirect(BYTE_SIZE.SINGLE.value);
 
         write(0x80, 0x01);
@@ -419,7 +420,7 @@ public class VL53L0X extends I2CUpdatableAddress {
     // Get the measurement timing budget in microseconds
     // based on VL53L0X_get_measurement_timing_budget_micro_seconds()
     // in us
-    private int getMeasurementTimingBudget() throws NACKException {
+    private int getMeasurementTimingBudget() throws I2CException {
         SequenceStepEnables enables = new SequenceStepEnables();
         SequenceStepTimeouts timeouts = new SequenceStepTimeouts();
 
@@ -466,7 +467,7 @@ public class VL53L0X extends I2CUpdatableAddress {
     // factor of N decreases the range measurement standard deviation by a factor of
     // sqrt(N). Defaults to about 33 milliseconds; the minimum is 20 ms.
     // based on VL53L0X_set_measurement_timing_budget_micro_seconds()
-    private boolean setMeasurementTimingBudget(int budget_us) throws NACKException {
+    private boolean setMeasurementTimingBudget(int budget_us) throws I2CException {
         SequenceStepEnables enables = new SequenceStepEnables();
         SequenceStepTimeouts timeouts = new SequenceStepTimeouts();
 
@@ -546,7 +547,7 @@ public class VL53L0X extends I2CUpdatableAddress {
 
     // Get sequence step enables
     // based on VL53L0X_GetSequenceStepEnables()
-    private void getSequenceStepEnables(SequenceStepEnables enables) throws NACKException {
+    private void getSequenceStepEnables(SequenceStepEnables enables) throws I2CException {
         byte sequence_config = read(VL53L0X_Constants.SYSTEM_SEQUENCE_CONFIG.value).get();
 
         enables.tcc = (byte) ((sequence_config >> 4) & 0x1);
@@ -568,7 +569,7 @@ public class VL53L0X extends I2CUpdatableAddress {
     // based on get_sequence_step_timeout(),
     // but gets all timeouts instead of just the requested one, and also stores
     // intermediate values
-    private void getSequenceStepTimeouts(SequenceStepEnables enables, SequenceStepTimeouts timeouts) throws NACKException {
+    private void getSequenceStepTimeouts(SequenceStepEnables enables, SequenceStepTimeouts timeouts) throws I2CException {
         timeouts.pre_range_vcsel_period_pclks = getVcselPulsePeriod(VcselPeriodPreRange);
 
         timeouts.msrc_dss_tcc_mclks = (short) (read(VL53L0X_Constants.MSRC_CONFIG_TIMEOUT_MACROP.value).get() + 1);
@@ -600,7 +601,7 @@ public class VL53L0X extends I2CUpdatableAddress {
 
     // Convert sequence step timeout from MCLKs to microseconds with given VCSEL period in PCLKs
     // based on VL53L0X_calc_timeout_us()
-    int timeoutMclksToMicroseconds(short timeout_period_mclks, short vcsel_period_pclks) {
+    private int timeoutMclksToMicroseconds(short timeout_period_mclks, short vcsel_period_pclks) {
         int macro_period_ns = calcMacroPeriod(vcsel_period_pclks);
 
         return ((timeout_period_mclks * macro_period_ns) + (macro_period_ns / 2)) / 1000;
@@ -618,20 +619,27 @@ public class VL53L0X extends I2CUpdatableAddress {
     }
 
     // Record the current time to check an upcoming timeout against
-    private int startTimeout() {
-        double now = HALUtil.getFPGATime();
-        return (timeout_start_ms = (short) now);
+    private void startTimeout() {
+        timeout_start_ms = HALUtil.getFPGATime();
     }
 
     // Check if timeout is enabled (set to nonzero value) and has expired
     private boolean checkTimeoutExpired() {
-        int now = (int) (HALUtil.getFPGATime());
+        long now = HALUtil.getFPGATime();
         return (io_timeout > 0 && (now - timeout_start_ms) > io_timeout);
+    }
+
+    /**
+     * Set the timeout for I2C reads
+     * @param io_timeout the timeout in milliseconds
+     */
+    public void setIo_timeout(int io_timeout) {
+        this.io_timeout = io_timeout;
     }
 
     // Get the VCSEL pulse period in PCLKs for the given period type.
     // based on VL53L0X_get_vcsel_pulse_period()
-    private byte getVcselPulsePeriod(vcselPeriodType type) throws NACKException {
+    private byte getVcselPulsePeriod(vcselPeriodType type) throws I2CException {
         if (type == VcselPeriodPreRange) {
             return (byte) decodeVcselPeriod(read(VL53L0X_Constants.PRE_RANGE_CONFIG_VCSEL_PERIOD.value).get());
         } else if (type == vcselPeriodType.VcselPeriodFinalRange) {
@@ -674,7 +682,7 @@ public class VL53L0X extends I2CUpdatableAddress {
     }
 
     // based on VL53L0X_perform_single_ref_calibration()
-    private boolean performSingleRefCalibration(byte vhv_init_byte) throws NACKException {
+    private boolean performSingleRefCalibration(byte vhv_init_byte) throws I2CException {
         write(VL53L0X_Constants.SYSRANGE_START.value, 0x01 | vhv_init_byte); // VL53L0X_REG_SYSRANGE_MODE_START_STOP
 
         startTimeout();
@@ -691,7 +699,7 @@ public class VL53L0X extends I2CUpdatableAddress {
         return true;
     }
 
-    boolean setVcselPulsePeriod(vcselPeriodType type, byte period_pclks) throws NACKException {
+    private boolean setVcselPulsePeriod(vcselPeriodType type, byte period_pclks) throws I2CException {
         byte vcsel_period_reg = encodeVcselPeriod(period_pclks);
 
         SequenceStepEnables enables = new SequenceStepEnables();
@@ -859,5 +867,42 @@ public class VL53L0X extends I2CUpdatableAddress {
 
     private byte encodeVcselPeriod(byte period_pclks) {
         return (byte) (((period_pclks) >> 1) - 1);
+    }
+
+    /**
+     *
+     * @param port the port (navx or onboard) of the i2c bus
+     * @param dios an array of all dio ports controlling the xshut pin
+     * @return an array of initialized VL53L0X sensors
+     * @throws I2CException if I2C initialization fails
+     */
+    public static VL53L0X[] initSensors(Port port, DigitalOutput... dios) throws I2CException {
+        return initSensors(port, dios, new boolean[dios.length]);
+    }
+
+    /**
+     *
+     * @param port the port (navx or onboard) of the i2c bus
+     * @param dios an array of all dio ports controlling the xshut pin
+     * @param longRange an array of boolean indicating whether the sensor is long range
+     * @return an array of initalized Vl53L0X sensors
+     * @throws I2CException if I2C initialization fails
+     */
+    public static VL53L0X[] initSensors(Port port, DigitalOutput[] dios, boolean[] longRange) throws I2CException {
+        if(dios.length != longRange.length) {
+            throw new IllegalArgumentException("Both arrays must be same length");
+        }
+
+        for(DigitalOutput d : dios) {
+            d.set(false);
+        }
+
+        VL53L0X[] output = new VL53L0X[dios.length];
+
+        for(int i = 0; i < dios.length; i++) {
+            VL53L0X next = new VL53L0X(port, i);
+            output[i] = next;
+        }
+        return output;
     }
 }

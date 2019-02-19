@@ -45,7 +45,7 @@ public class I2CUpdatableAddress {
     * @param port          The I2C port the device is connected to.
     * @param deviceAddress The address of the device on the I2C bus.
     */
-    public I2CUpdatableAddress(Port port, int defaultAddress, int deviceAddress) throws NACKException {
+    public I2CUpdatableAddress(Port port, int defaultAddress, int deviceAddress) throws I2CException {
         m_port = port.value;
         m_defaultAddress = defaultAddress;
         m_deviceAddress = defaultAddress;
@@ -55,7 +55,7 @@ public class I2CUpdatableAddress {
         HAL.report(tResourceType.kResourceType_I2C, deviceAddress);
     }
 
-    private final int setAddress(int new_address) throws NACKException {
+    private final int setAddress(int new_address) throws I2CException {
         //NOTICE: CHANGING THE ADDRESS IS NOT STORED IN NON-VOLATILE MEMORY
         // POWER CYCLING THE DEVICE REVERTS ADDRESS BACK TO 0x29
         if (m_defaultAddress == new_address || new_address > 127)
@@ -74,7 +74,7 @@ public class I2CUpdatableAddress {
     /**
     * Destructor.
     */
-    public void free() {
+    protected void free() {
         I2CJNI.i2CClose(m_port);
     }
 
@@ -90,8 +90,8 @@ public class I2CUpdatableAddress {
     * @param receiveSize  Number of bytes to read from the device.
     * @return Transfer Aborted... false for success, true for aborted.
     */
-    public synchronized boolean transaction(byte[] dataToSend, int sendSize,
-                                            byte[] dataReceived, int receiveSize) throws NACKException {
+    protected synchronized boolean transaction(byte[] dataToSend, int sendSize,
+                                            byte[] dataReceived, int receiveSize) throws I2CException {
         if (dataToSend.length < sendSize) {
             throw new IllegalArgumentException("dataToSend is too small, must be at least " + sendSize);
         }
@@ -102,7 +102,7 @@ public class I2CUpdatableAddress {
         boolean aborted = I2CJNI.i2CTransactionB(m_port, (byte) m_deviceAddress, dataToSend,
                 (byte) sendSize, dataReceived, (byte) receiveSize) < 0;
         if (aborted) {
-            throw new NACKException();
+            throw new I2CException();
         }
         return false;
     }
@@ -119,8 +119,8 @@ public class I2CUpdatableAddress {
     * @param receiveSize  Number of bytes to read from the device.
     * @return Transfer Aborted... false for success, true for aborted.
     */
-    public synchronized boolean transaction(ByteBuffer dataToSend, int sendSize,
-                                            ByteBuffer dataReceived, int receiveSize) throws NACKException {
+    protected synchronized boolean transaction(ByteBuffer dataToSend, int sendSize,
+                                            ByteBuffer dataReceived, int receiveSize) throws I2CException {
         if (dataToSend.hasArray() && dataReceived.hasArray()) {
             return transaction(dataToSend.array(), sendSize, dataReceived.array(), receiveSize);
         }
@@ -142,7 +142,7 @@ public class I2CUpdatableAddress {
                 (byte) sendSize, dataReceived, (byte) receiveSize) < 0;
 
         if (aborted) {
-            throw new NACKException();
+            throw new I2CException();
         }
         return false;
     }
@@ -155,7 +155,7 @@ public class I2CUpdatableAddress {
     *
     * @return Transfer Aborted... false for success, true for aborted.
     */
-    public boolean addressOnly() throws NACKException {
+    protected boolean addressOnly() throws I2CException {
         return transaction(new byte[0], (byte) 0, new byte[0], (byte) 0);
     }
 
@@ -168,14 +168,14 @@ public class I2CUpdatableAddress {
     * @param data            The byte to write to the register on the device.
     * @return Transfer Aborted... false for success, true for aborted.
     */
-    public synchronized boolean write(int registerAddress, int data) throws NACKException {
+    protected synchronized boolean write(int registerAddress, int data) throws I2CException {
         byte[] buffer = new byte[2];
         buffer[0] = (byte) registerAddress;
         buffer[1] = (byte) data;
         boolean aborted = I2CJNI.i2CWriteB(m_port, (byte) m_deviceAddress, buffer,
                 (byte) buffer.length) < 0;
         if (aborted) {
-            throw new NACKException();
+            throw new I2CException();
         }
         return false;
     }
@@ -188,7 +188,7 @@ public class I2CUpdatableAddress {
     * @param data The data to write to the device.
     * @return Transfer Aborted... false for success, true for aborted.
     */
-    public synchronized boolean writeBulk(byte[] data) throws NACKException {
+    protected synchronized boolean writeBulk(byte[] data) throws I2CException {
         return writeBulk(data, data.length);
     }
 
@@ -201,14 +201,14 @@ public class I2CUpdatableAddress {
     * @param size The number of data bytes to write.
     * @return Transfer Aborted... false for success, true for aborted.
     */
-    public synchronized boolean writeBulk(byte[] data, int size) throws NACKException {
+    protected synchronized boolean writeBulk(byte[] data, int size) throws I2CException {
         if (data.length < size) {
             throw new IllegalArgumentException(
                     "buffer is too small, must be at least " + size);
         }
         boolean aborted = I2CJNI.i2CWriteB(m_port, (byte) m_deviceAddress, data, (byte) size) < 0;
         if (aborted) {
-            throw new NACKException();
+            throw new I2CException();
         }
         return false;
     }
@@ -222,7 +222,7 @@ public class I2CUpdatableAddress {
     * @param size The number of data bytes to write.
     * @return Transfer Aborted... false for success, true for aborted.
     */
-    public synchronized boolean writeBulk(ByteBuffer data, int size) throws NACKException {
+    protected synchronized boolean writeBulk(ByteBuffer data, int size) throws I2CException {
         if (data.hasArray()) {
             boolean aborted = writeBulk(data.array(), size);
             try {
@@ -260,7 +260,7 @@ public class I2CUpdatableAddress {
     * @param buffer          A pointer to the array of bytes to store the data read from the device.
     * @return Transfer Aborted... false for success, true for aborted.
     */
-    public boolean read(int registerAddress, int count, byte[] buffer) throws NACKException {
+    protected boolean read(int registerAddress, int count, byte[] buffer) throws I2CException {
         requireNonNull(buffer, "Null return buffer was given");
 
         if (count < 1) {
@@ -289,7 +289,7 @@ public class I2CUpdatableAddress {
     * @param buffer          A buffer to store the data read from the device.
     * @return Transfer Aborted... false for success, true for aborted.
     */
-    public boolean read(int registerAddress, int count, ByteBuffer buffer) throws NACKException {
+    protected boolean read(int registerAddress, int count, ByteBuffer buffer) throws I2CException {
         if (count < 1) {
             throw new BoundaryException("Value must be at least 1, " + count + " given");
         }
@@ -332,7 +332,7 @@ public class I2CUpdatableAddress {
     * @param count  The number of bytes to read in the transaction.
     * @return Transfer Aborted... false for success, true for aborted.
     */
-    public boolean readOnly(byte[] buffer, int count) throws NACKException {
+    protected boolean readOnly(byte[] buffer, int count) throws I2CException {
         requireNonNull(buffer, "Null return buffer was given");
         if (count < 1) {
             throw new BoundaryException("Value must be at least 1, " + count + " given");
@@ -345,7 +345,7 @@ public class I2CUpdatableAddress {
                 (byte) count) < 0;
 
         if (aborted) {
-            throw new NACKException();
+            throw new I2CException();
         }
 
         return false;
@@ -360,7 +360,7 @@ public class I2CUpdatableAddress {
     * @param count  The number of bytes to read in the transaction.
     * @return Transfer Aborted... false for success, true for aborted.
     */
-    public boolean readOnly(ByteBuffer buffer, int count) throws NACKException {
+    protected boolean readOnly(ByteBuffer buffer, int count) throws I2CException {
         if (count < 1) {
             throw new BoundaryException("Value must be at least 1, " + count
                     + " given");
@@ -387,7 +387,7 @@ public class I2CUpdatableAddress {
         boolean aborted =  I2CJNI.i2CRead(m_port, (byte) m_deviceAddress, buffer, (byte) count) < 0;
 
         if (aborted) {
-            throw new NACKException();
+            throw new I2CException();
         }
 
         try {
@@ -398,17 +398,6 @@ public class I2CUpdatableAddress {
 
         return false;
     }
-
-    /*
-    * Send a broadcast write to all devices on the I2C bus.
-    *
-    * <p>This is not currently implemented!
-    *
-    * @param registerAddress The register to write on all devices on the bus.
-    * @param data            The value to write to the devices.
-    */
-    // public void broadcast(int registerAddress, int data) {
-    // }
 
     /**
     * Verify that a device's registers contain expected values.
@@ -423,8 +412,8 @@ public class I2CUpdatableAddress {
     * @return true if the sensor was verified to be connected
     * @pre The device must support and be configured to use register auto-increment.
     */
-    public boolean verifySensor(int registerAddress, int count,
-                                byte[] expected) throws NACKException {
+    protected boolean verifySensor(int registerAddress, int count,
+                                byte[] expected) throws I2CException {
         // TODO: Make use of all 7 read bytes
         byte[] dataToSend = new byte[1];
 
@@ -448,7 +437,7 @@ public class I2CUpdatableAddress {
         return true;
     }
 
-    public static void destroyDirectByteBuffer(ByteBuffer toBeDestroyed) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+    protected static void destroyDirectByteBuffer(ByteBuffer toBeDestroyed) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         Method cleanerMethod = toBeDestroyed.getClass().getMethod("cleaner");
         cleanerMethod.setAccessible(true);
         Object cleaner = cleanerMethod.invoke(toBeDestroyed);
@@ -457,5 +446,20 @@ public class I2CUpdatableAddress {
         cleanMethod.invoke(cleaner);
     }
 
-    public class NACKException extends IOException{}
+    public class I2CException extends IOException{
+        public I2CException() {
+        }
+
+        public I2CException(String message) {
+            super(message);
+        }
+
+        public I2CException(String message, Throwable cause) {
+            super(message, cause);
+        }
+
+        public I2CException(Throwable cause) {
+            super(cause);
+        }
+    }
 }
